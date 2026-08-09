@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AM Portfolio</title>
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779756599/Profile_Picture_hev3wz.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />
+  <style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  :root{
+    --k:#000;--w:#fff;--g:#8a8a8a;--lg:#ebebeb;--b:#e0e0e0;
+    --pill-bg:#181818;--orange:#ff4d00;
+    --fb:'Roboto',system-ui,sans-serif;
+    --content-max:1440px;
+    --pad-x:clamp(20px,5vw,50px);
+    --pad-y:clamp(20px,3vh,40px);
+    
+    --pill-radius:999px;
+    --pill-label-gap:clamp(12px,1.5vw,20px);
+    --pill-nav-h:clamp(28px,3.5vw,38px);
+    --pill-lang-h:clamp(22px,2.5vw,30px);
+    --dot-size:clamp(14px,1.8vw,18px);
+    
+    --fs-nav:clamp(12px,1vw,14px);
+    --fs-lang:clamp(11px,0.9vw,13px);
+    
+    --fs-name:clamp(2.8rem,5.5vw,6.5rem);
+    --fs-body:clamp(1.2rem,1.8vw,2.1rem);
+    --fs-contact:clamp(14px,1vw,18px);
+    --photo:clamp(100px,11vw,160px);
+    --hero-gap:clamp(40px,7vw,100px);
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  body{font-family:var(--fb);background:var(--w);color:var(--k);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+  .shell{
+    min-height:100vh;width:100%;max-width:var(--content-max);
+    margin:0 auto;padding:var(--pad-y) var(--pad-x) clamp(48px,8vh,80px);
+    display: flex; flex-direction: column;
+  }
+  .page{animation:pageIn .55s var(--ease) both; flex: 1; display: flex; flex-direction: column;}
+  @keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+  /* ——— Header ——— */
+  .hdr{
+    display:grid;grid-template-columns:1fr auto 1fr;
+    align-items:start;gap:16px 24px;
+    margin-bottom:clamp(24px,5vh,48px);width:100%;
+  }
+  .hdr-left{display:flex;align-items:flex-start}
+  .hdr-center{display:flex;justify-content:center;min-width:0}
+  .hdr-right{display:flex;justify-content:flex-end}
+
+  .back-btn{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:clamp(16px,1.2vw,20px);font-weight:500;color:var(--k);
+    background:rgba(255,255,255,.9);border:none;cursor:pointer;padding:12px 18px;border-radius:999px;
+    position:fixed;top:28px;left:28px;z-index:1000;
+    transition:opacity .25s var(--ease);
+  }
+  .back-btn:hover{opacity:.4}
+  .back-btn svg{width:20px;height:20px}
+
+  .nav-track,.lang-track{
+    display:inline-flex;flex-direction:column;
+    align-items:center; 
+    gap:var(--pill-label-gap);max-width:100%;
+  }
+  
+  .lang-track{opacity: 0.25; transition: opacity 0.3s var(--ease);}
+  .lang-track:hover {opacity: 1;}
+
+  .pill{
+    background:var(--pill-bg);border-radius:var(--pill-radius);
+    position:relative;height:var(--pill-nav-h);width:100%;
+  }
+  .lang-track .pill{height:var(--pill-lang-h)}
+  
+  .pill-dot{
+    position:absolute;top:50%;left:0;
+    width:var(--dot-size);height:var(--dot-size);
+    background:var(--w);border-radius:50%;
+    transform:translate(-50%, -50%);
+    transition:left .38s var(--ease);
+    pointer-events:none;
+  }
+  
+  .nav-row,.lang-row{
+    display:grid; grid-auto-flow: column; grid-auto-columns: 1fr;
+    justify-items: center; align-items:center;
+  }
+  .nav-row{ gap:clamp(16px,2.5vw,40px); padding: 0 clamp(40px, 7vw, 100px); }
+  .lang-row{ gap:clamp(8px,1.5vw,16px); padding: 0 clamp(16px, 2vw, 24px); }
+
+  .lang-btn,.nav-link{
+    font-size:var(--fs-nav);font-weight:500;color:var(--k);
+    background:none;border:none;cursor:pointer;padding:0;
+    white-space:nowrap;line-height:1.2;font-family:var(--fb);
+    transition:color .25s var(--ease),opacity .25s var(--ease);
+  }
+  .lang-btn { font-size: var(--fs-lang); }
+  .lang-btn.dim,.nav-link.dim{color:var(--g);font-weight:500}
+  .nav-link:hover,.lang-btn:hover{color:var(--k)}
+  .lang-btn.dim:hover,.nav-link.dim:hover{opacity:.5}
+
+  .about-viewport {
+    display: flex; flex-direction: column;
+    min-height: calc(100vh - clamp(100px, 20vh, 180px));
+  }
+  .about-hero{
+    display:grid;grid-template-columns:var(--photo) minmax(0,1fr);
+    align-items:start;gap:var(--hero-gap);
+    margin-top:clamp(80px, 16vh, 160px); margin-bottom: 40px;
+  }
+  .about-photo-wrap{flex-shrink:0; padding-top:8px;}
+  .about-photo{
+    width:100%;height:auto;aspect-ratio:1/1;
+    object-fit:cover;object-position:top center;display:block;
+    transition:transform .5s var(--ease);
+  }
+  .about-photo-wrap:hover .about-photo{transform:scale(1.02)}
+  .about-ph{width:100%;aspect-ratio:1/1;background:#d8d8d8;display:block;}
+  .about-info{min-width:0; padding-top:0;}
+  .about-name{
+    font-size:var(--fs-name);font-weight:500;line-height:1;
+    letter-spacing:-0.04em;margin-bottom:clamp(20px,3vh,36px);
+  }
+  .about-bio{
+    font-size:var(--fs-body);line-height:1.35;font-weight:400;
+    letter-spacing:-0.03em;max-width:32em;color:var(--k); white-space:pre-wrap;
+  }
+
+  .about-contacts { margin-top: auto; padding-bottom: 24px; }
+  .about-contacts h3 {
+    font-size: var(--fs-contact); font-weight: 600;
+    margin-bottom: 20px; letter-spacing:-0.02em;
+  }
+  .contacts-links { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+  .links-group { display: flex; gap: clamp(24px, 4vw, 48px); }
+  .contacts-links a {
+    font-size: var(--fs-contact); font-weight: 400;
+    color: var(--k); text-decoration: underline;
+    text-underline-offset: 4px; transition: opacity .25s var(--ease);
+  }
+  .contacts-links a:hover { opacity: .4; }
+  .contacts-links a.muted { color: var(--g); pointer-events: none; }
+
+  .next-cases {
+    margin-top: clamp(80px, 12vh, 160px);
+    padding-top: clamp(40px, 6vh, 60px);
+    border-top: 1px solid var(--lg);
+  }
+  .next-cases-title {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 500; letter-spacing: -0.03em; margin-bottom: 32px;
+  }
+  .next-cases-grid {
+    display: grid; grid-template-columns: repeat(4, minmax(0, 260px)); gap: 14px;
+  }
+  .next-card {
+    background: var(--lg); border-radius: 14px; overflow: hidden;
+    aspect-ratio: 3/2; cursor: pointer; position: relative;
+    transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+  }
+  .next-card:hover { transform: translateY(-5px); box-shadow: 0 10px 28px rgba(0,0,0,0.08); }
+  .next-card img { width: 100%; height: 100%; object-fit: cover; }
+  .next-card-title {
+    position: absolute; bottom: 0; left: 0; right: 0; padding: 12px 14px;
+    background: linear-gradient(transparent, rgba(0,0,0,.45));
+    color: #fff; font-size: .82rem; font-weight: 400;
+  }
+  .next-card-ph {
+    width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; font-weight: 500; color: #c0c0c0; text-align: center; padding: 16px;
+  }
+
+  .case-page-wrap { width:100%; }
+  .case-page{
+    display:flex; justify-content:center; position:relative; width:100%; margin:0 auto;
+  }
+  
+  .case-side-wrap{
+    position:absolute; left:0; top:0; bottom:0;
+    width:clamp(140px, 15vw, 220px); pointer-events:none;
+  }
+  .case-side{
+    position:sticky; top:50vh; transform:translateY(-50%); pointer-events:auto;
+  }
+  
+  .case-side-nav{list-style:none;display:flex;flex-direction:column;gap:8px}
+  .case-side-nav li{
+    font-size:clamp(0.7rem, 0.8vw, 0.85rem); color:var(--g);cursor:pointer;
+    padding:4px 0;transition:color .2s;line-height:1.45;
+  }
+  .case-side-nav li:hover{color:var(--k)}
+  .case-side-nav li.act{color:var(--k);font-weight:500}
+  
+  .case-main{ width:100%; max-width:960px; }
+
+  /* Карточки внутри категорий */
+  .cat-item { cursor: pointer; transition: transform .4s var(--ease); }
+  .cat-item:hover .pw-card { transform: translateY(-4px); }
+  .pw-card { transition: transform .4s var(--ease); }
+
+  /* Специфичная карточка ProWork */
+  .pw-card{
+    position:relative;background:var(--lg); border-radius:24px;
+    overflow:hidden; aspect-ratio:5/4; min-height:300px;
+  }
+  .pw-meta{
+    position:absolute;top:22px;left:28px;right:28px;
+    display:flex;justify-content:space-between;
+    font-size:.72rem;color:#b0b0b0;font-weight:400;z-index:2;
+  }
+  .pw-bg-title{
+    position:absolute;left:50%;top:50%; transform:translate(-50%,-52%);
+    font-size:clamp(4rem,14vw,9rem); font-weight:700;color:#d4d4d4;
+    white-space:nowrap; line-height:1;z-index:1;user-select:none;
+  }
+  .pw-star{
+    position:absolute; top:calc(50% - clamp(3.5rem,10vw,6.5rem));
+    left:calc(50% + clamp(5rem,18vw,11rem)); color:var(--orange);font-size:1.1rem;z-index:2;
+  }
+  .pw-shapes{position:absolute;inset:0;z-index:1;pointer-events:none}
+  .pw-shape{ position:absolute;border-radius:999px; border:1.5px solid transparent; }
+  .pw-shape.s1{width:120px;height:48px;top:18%;left:8%;border-color:#d8d8d8;transform:rotate(-12deg)}
+  .pw-shape.s2{width:90px;height:36px;top:55%;left:12%;border-color:var(--orange);transform:rotate(8deg)}
+  .pw-shape.s3{width:70px;height:28px;top:30%;right:18%;border-color:#d0d0d0;transform:rotate(15deg)}
+  .pw-shape.s4{width:100px;height:40px;bottom:22%;right:10%;border-color:var(--orange);transform:rotate(-8deg)}
+
+  .pw-mockup{
+    position:absolute;left:50%;top:50%; transform:translate(-50%,-48%);
+    z-index:3;width:clamp(160px,24vw,240px);height:clamp(280px,38vw,420px);
+    background:#ddd;border-radius:24px; display:flex;align-items:center;justify-content:center;
+    font-size:.72rem;color:#999;text-align:center;padding:16px;
+  }
+  .pw-bottom{
+    position:absolute;bottom:24px;left:28px;right:28px;
+    display:flex;justify-content:space-between;align-items:flex-end; z-index:4;
+  }
+  .pw-desc{font-size:.78rem;color:var(--g);line-height:1.45;max-width:240px}
+  .pw-app-tag{
+    display:inline-block;border:1.5px solid var(--orange);
+    color:var(--k);font-size:.72rem;font-weight:500;
+    padding:2px 8px;margin-bottom:6px;border-radius:2px;
+  }
+  .pw-tag{color:var(--orange);font-size:.82rem;font-weight:600}
+
+  .empty-msg{font-size:.85rem;color:var(--g);padding:8px 0}
+
+  .adm{min-height:100vh;padding:36px 44px;background:#f7f7f7;font-family:var(--fb)}
+  .adm-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px;flex-wrap:wrap;gap:16px}
+  .adm-title{font-size:1.6rem;font-weight:700}
+  .adm-actions{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{font-size:.72rem;font-weight:500;letter-spacing:.04em;
+    padding:9px 18px;border:1px solid var(--k);background:transparent;
+    cursor:pointer;transition:all .2s;color:var(--k);border-radius:999px}
+  .btn:hover{background:var(--k);color:#fff}
+  .btn.pr{background:var(--k);color:#fff}
+  .btn.pr:hover{opacity:.8}
+  .btn.dg{border-color:#c00;color:#c00}
+  .btn.dg:hover{background:#c00;color:#fff}
+  .btn.sm{padding:6px 14px;font-size:.68rem}
+  .adm-card{background:#fff;padding:16px 20px;margin-bottom:8px;
+    border-radius:12px;display:flex;align-items:center;gap:16px}
+  .adm-thumb{width:88px;height:58px;object-fit:cover;border-radius:6px;background:var(--lg)}
+  .adm-thumb-ph{width:88px;height:58px;background:var(--lg);border-radius:6px;
+    display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#bbb}
+  .adm-card-info{flex:1}
+  .adm-card-t{font-size:.9rem;font-weight:600}
+  .adm-card-m{font-size:.75rem;color:var(--g);margin-top:2px}
+  .adm-card-acts{display:flex;gap:8px}
+  .adm-section{background:#fff;padding:24px;margin-bottom:12px;border-radius:12px}
+  .adm-section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:12px}
+  .adm-sec-title{font-size:1.1rem;font-weight:600}
+  .adm-g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .fg{margin-bottom:16px}
+  .fl{display:block;font-size:.68rem;font-weight:500;color:var(--g);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em}
+  .fi{width:100%;padding:10px 12px;border:1px solid var(--b);font-family:var(--fb);
+    font-size:.88rem;background:#fff;outline:none;border-radius:8px;transition:border-color .2s}
+  .fi:focus{border-color:var(--k)}
+  textarea.fi{min-height:100px;resize:vertical}
+  select.fi{cursor:pointer}
+  .ch-edit{background:#f5f5f5;padding:16px;margin-bottom:8px;border-radius:10px; border:1px solid #eaeaea;}
+  .ch-edit-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .ch-edit-num{font-weight:600;font-size:.9rem; text-transform: uppercase; letter-spacing: 0.05em;}
+  
+  .info-bar{background:#fff;border-left:3px solid var(--k);padding:10px 14px;
+    font-size:.78rem;color:var(--g);margin-bottom:20px;border-radius:0 8px 8px 0}
+  .info-bar strong{color:var(--k)}
+  .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f5f5}
+  .login-box{background:#fff;padding:40px;width:340px;border-radius:16px}
+  .login-title{font-size:1.5rem;font-weight:700;margin-bottom:6px}
+  .login-sub{font-size:.8rem;color:var(--g);margin-bottom:28px;line-height:1.5}
+  .login-err{color:#c00;font-size:.78rem;margin-top:6px}
+
+  .adm-link{
+    position:fixed;bottom:16px;right:16px;
+    font-size:.65rem;color:var(--g);background:none;border:none;
+    cursor:pointer;opacity:0;transition:opacity .3s;z-index:50;
+  }
+  .adm-link:hover{opacity:1 !important;color:var(--k)}
+  body:hover .adm-link{opacity:.35}
+
+  @media(max-width:1024px){
+    :root{--nav-gap:clamp(12px,2vw,24px)}
+  }
+  .vibe-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+  @media(max-width:768px){
+    .hdr{
+      grid-template-columns:1fr;justify-items:center;text-align:center;
+      gap:24px;margin-bottom:40px;
+    }
+    .hdr-left,.hdr-right,.hdr-center{width:100%;justify-content:center}
+    .hdr-left{order:2}.hdr-center{order:1}.hdr-right{order:3}
+    
+    .nav-row{padding: 0 clamp(28px, 6vw, 48px);}
+    .lang-row{padding: 0 clamp(16px, 4vw, 24px);}
+    
+    .about-hero{ grid-template-columns:1fr; margin-top:24px; gap:32px; }
+    .about-photo-wrap { max-width: 240px; margin: 0 auto; }
+    .about-info { display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
+    .contacts-links { flex-direction: column; gap: 16px; justify-content: flex-start; }
+    .links-group { gap: 24px; }
+    .about-contacts { padding-left: 0 !important; }
+
+    .case-page{flex-direction:column;gap:28px}
+    .case-side-wrap{position:static;width:100%;height:auto}
+    .case-side{position:static;transform:none}
+    .case-side-nav{flex-direction:row;flex-wrap:wrap;gap:12px 20px}
+    .pw-card{min-height:240px;border-radius:20px}
+    .pw-meta{font-size:.65rem;top:14px;left:16px;right:16px}
+    .pw-bottom{left:16px;right:16px;bottom:16px}
+    .adm{padding:20px}
+    .adm-g2{grid-template-columns:1fr}
+    /* Vibe page */
+    .vibe-grid{grid-template-columns:1fr !important;gap:28px !important}
+    .vibe-section-wrap{padding:40px 20px 0 !important}
+  }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.10/babel.min.js"></script>
+  <script type="text/babel" data-presets="react">
+const { useState, useEffect, useRef } = React;
+
+window.addEventListener('error', function(e) {
+  if (e.message && (e.message.includes('ResizeObserver') || e.message.includes('undelivered notifications'))) {
+    e.stopImmediatePropagation();
+  }
+});
+
+const storage = {
+  async get(key) {
+    if (window.storage?.get) {
+      try { return await window.storage.get(key); } catch { /* fallback */ }
+    }
+    const v = localStorage.getItem(key);
+    return v ? { value: v } : null;
+  },
+  async set(key, value) {
+    if (window.storage?.set) {
+      try { await window.storage.set(key, value); return; } catch { /* fallback */ }
+    }
+    localStorage.setItem(key, value);
+  },
+};
+
+const PASS = "design2024";
+
+const DEFAULT_ABOUT = {
+  "name": "Александр Мотрич",
+  "title": "UI/UX и графический дизайнер",
+  "photo": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779756599/Profile_Picture_hev3wz.png",
+  "bio": "UI/UX и графический дизайнер. Выпускник СПбГУПТД.\nИмею опыт работы с интерфейсами, разработкой мобильных приложений и брендингом.",
+  "contacts": {
+    "email": "motrich.mas@gmail.com",
+    "telegram": "https://t.me/hcirtom",
+    "behance": "https://www.behance.net/4132907b",
+    "dprofile": "https://dprofile.ru/motrich"
+  }
+};
+
+const DEFAULT_CASES = [
+  {
+    "id": "prowork",
+    "title": "ПроВорк / Приложение для поиска работы",
+    "shortTitle": "ПроВорк",
+    "category": "uiux",
+    "coverImage": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779850981/1_pedwj0.png",
+    "tags": [
+      "UI / UX",
+      "Identity"
+    ],
+    "year": "",
+    "blocks": [
+      {
+        "id": "h1",
+        "type": "heading",
+        "content": "Исследования"
+      },
+      {
+        "id": "i1",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779756514/Section_%D0%90%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7_vkgnbp.png"
+      },
+      {
+        "id": "t1",
+        "type": "text",
+        "content": "Анализ персон, интервью, анализ конкурентов"
+      },
+      {
+        "id": "i2",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779756516/%D0%90%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3%D0%B8_odveq3.png"
+      },
+      {
+        "id": "t2",
+        "type": "text",
+        "content": "Разбор аналогов"
+      },
+      {
+        "id": "h2",
+        "type": "heading",
+        "content": "Проектирование"
+      },
+      {
+        "id": "i3",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779756517/%D0%92%D0%B0%D0%B9%D1%80%D1%84%D1%80%D0%B5%D0%B9%D0%BC%D1%8B_px6n9c.png"
+      },
+      {
+        "id": "t3",
+        "type": "text",
+        "content": "Вайрфреймы"
+      },
+      {
+        "id": "i4",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779756521/%D0%A1%D1%82%D0%B8%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D0%B0_ys2fyd.png"
+      },
+      {
+        "id": "t4",
+        "type": "text",
+        "content": "Работа со стилистикой и референсами"
+      },
+      {
+        "id": "i5",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779756519/%D0%9F%D1%80%D0%BE%D1%86%D0%B5%D1%81%D1%81_%D0%A0%D0%B0%D0%B1%D0%BE%D1%82%D1%8B_l81dbe.png"
+      },
+      {
+        "id": "t5",
+        "type": "text",
+        "content": "Работа над экранами"
+      },
+      {
+        "id": "h3",
+        "type": "heading",
+        "content": "Приложение"
+      },
+      {
+        "id": "i6",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779756503/4_snwyqp.png"
+      },
+      {
+        "id": "i7",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779756499/2_da1d8k.png"
+      },
+      {
+        "id": "i8",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779756500/3_w918bo.png"
+      },
+      {
+        "id": "i9",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779756504/5_zfyojq.png"
+      },
+      {
+        "id": "i10",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779756505/6_gbfnnt.png"
+      },
+      {
+        "id": "i11",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779756507/7_jxtfbz.png"
+      },
+      {
+        "id": "i12",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779756508/8_cwbz3b.png"
+      },
+      {
+        "id": "i13",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779756511/9_ipbt7k.png"
+      },
+      {
+        "id": "i14",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779756512/10_qxbzdc.png"
+      },
+      {
+        "id": "t6",
+        "type": "text",
+        "content": "Компоненты"
+      }
+    ]
+  },
+  {
+    "id": "1779801068345",
+    "title": "СТАЛ / Айдентика для компании, занимающейся работами со сталью",
+    "category": "branding",
+    "coverImage": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779799406/%D0%9E%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0_iui90b.png",
+    "tags": [],
+    "year": "",
+    "shortTitle": "СТАЛ",
+    "chapters": [],
+    "blocks": [
+      {
+        "id": "m_1779840659600_0.27319258181519546",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779799384/1_h67q36.png"
+      },
+      {
+        "id": "m_1779840659600_0.1500157318001729",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779799385/3_raya2q.png"
+      },
+      {
+        "id": "m_1779840659600_0.36450951198503934",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779799386/4_niumed.png"
+      },
+      {
+        "id": "m_1779840659600_0.018760972539192844",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779799387/5_sopfi4.png"
+      },
+      {
+        "id": "m_1779840659600_0.3098896801901114",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779799390/6_enu4m1.png"
+      },
+      {
+        "id": "m_1779840659600_0.4724047430958723",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779799392/7_q3twzl.png"
+      },
+      {
+        "id": "m_1779840659600_0.20612228608726857",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779799394/8_w7av76.png"
+      },
+      {
+        "id": "m_1779840659600_0.9602855632086007",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779799396/9_vqtflm.png"
+      },
+      {
+        "id": "m_1779840659600_0.8240849369867841",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779799399/10_evauld.png"
+      },
+      {
+        "id": "m_1779840659600_0.8204436129309817",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779799400/11_ttizvy.png"
+      },
+      {
+        "id": "m_1779840659600_0.4982051715161345",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779799402/12_ffpnot.png"
+      },
+      {
+        "id": "m_1779840659600_0.8100225163478544",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779799404/15_kaiups.png"
+      }
+    ]
+  },
+  {
+    "id": "1779825075787",
+    "title": "Логотипы",
+    "category": "branding",
+    "coverImage": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779826075/Slide_16_9_-_17_ovaj8g.png",
+    "tags": [],
+    "year": "",
+    "shortTitle": "Логотипы",
+    "chapters": [],
+    "blocks": [
+      {
+        "id": "h_1779832380550_0.4838918779582577",
+        "type": "heading",
+        "content": "ПроВорк"
+      },
+      {
+        "id": "m_1779832380550_0.47384782575190987",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779825436/Slide_16_9_-_19_fjtfmg.png"
+      },
+      {
+        "id": "t_1779832380550_0.6665848232096101",
+        "type": "text",
+        "content": "Сервис для поиска работы"
+      },
+      {
+        "id": "h_1779832380550_0.09260457457221183",
+        "type": "heading",
+        "content": "СОЮЗ Констракт Инжиниринг"
+      },
+      {
+        "id": "m_1779832380550_0.5240073283687915",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779825437/Slide_16_9_-_20_ukytv0.png"
+      },
+      {
+        "id": "t_1779832380550_0.01992495795353766",
+        "type": "text",
+        "content": "Промышленное предприятие по изготовлению оборудования, B2B"
+      },
+      {
+        "id": "h_1779832380550_0.9133550702339931",
+        "type": "heading",
+        "content": "Прото"
+      },
+      {
+        "id": "m_1779832380550_0.1329535667984615",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779825436/Slide_16_9_-_21_jgncs4.png"
+      },
+      {
+        "id": "t_1779832380550_0.3265527135117242",
+        "type": "text",
+        "content": "Бренд одежды"
+      },
+      {
+        "id": "h_1779832380550_0.08355092243277495",
+        "type": "heading",
+        "content": "Салон Алёны Бушуевой"
+      },
+      {
+        "id": "m_1779832380550_0.6726820305847773",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779825437/Slide_16_9_-_22_chcgcw.png"
+      },
+      {
+        "id": "t_1779832380550_0.5569070627372447",
+        "type": "text",
+        "content": "Перманентный макияж"
+      },
+      {
+        "id": "h_1779832380550_0.1667831610932855",
+        "type": "heading",
+        "content": "Стал"
+      },
+      {
+        "id": "m_1779832380550_0.41648135789210594",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779825437/Slide_16_9_-_23_mc7pv7.png"
+      },
+      {
+        "id": "t_1779832380550_0.873813107230089",
+        "type": "text",
+        "content": "Фабрика работы со сталью"
+      },
+      {
+        "id": "h_1779832380550_0.15813500242397183",
+        "type": "heading",
+        "content": "Живая Сегежа"
+      },
+      {
+        "id": "m_1779832380550_0.34022298522277106",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779825437/Slide_16_9_-_24_ptzomc.png"
+      },
+      {
+        "id": "t_1779832380550_0.9561338325066353",
+        "type": "text",
+        "content": "Фонд, сообщество активных горожан"
+      },
+      {
+        "id": "h_1779832380550_0.772971591172139",
+        "type": "heading",
+        "content": "BetMan"
+      },
+      {
+        "id": "m_1779832380550_0.1287533548936166",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779825438/Slide_16_9_-_25_by8if2.png"
+      },
+      {
+        "id": "t_1779832380550_0.6682934808772784",
+        "type": "text",
+        "content": "Крипто мини-апп"
+      },
+      {
+        "id": "h_1779832380550_0.6803267387987424",
+        "type": "heading",
+        "content": "АМ персональный знак"
+      },
+      {
+        "id": "m_1779832380550_0.1028758098405923",
+        "type": "image",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779825438/Slide_16_9_-_26_spfbo9.png"
+      }
+    ]
+  },
+  {
+    "id": "1779838556148",
+    "title": "Пулло / Сайт фабрики пластиковой тары",
+    "category": "uiux",
+    "coverImage": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779838527/%D0%BE%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0_gfjlpz.png",
+    "tags": [],
+    "year": "",
+    "blocks": [
+      {
+        "id": "1779840420907",
+        "type": "image",
+        "content": "",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779840375/__________s657fy_eo9uaz.gif"
+      },
+      {
+        "id": "1779838677238",
+        "type": "heading",
+        "content": "Главная",
+        "url": ""
+      },
+      {
+        "id": "1779838686491",
+        "type": "image",
+        "content": "",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779838344/%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_tjfax9.png"
+      },
+      {
+        "id": "1779838699314",
+        "type": "heading",
+        "content": "Портфолио работ",
+        "url": ""
+      },
+      {
+        "id": "1779838728723",
+        "type": "image",
+        "content": "",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779838343/%D0%B2%D1%82%D0%BE%D1%80%D0%B0%D1%8F_t9slab.png"
+      },
+      {
+        "id": "1779838735154",
+        "type": "heading",
+        "content": "Наши возможности",
+        "url": ""
+      },
+      {
+        "id": "1779838752518",
+        "type": "image",
+        "content": "",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779838344/%D1%82%D1%80%D0%B5%D1%82%D1%8C%D1%8F_cejhk1.png"
+      },
+      {
+        "id": "1779838773505",
+        "type": "heading",
+        "content": "Исследования",
+        "url": ""
+      },
+      {
+        "id": "1779838781030",
+        "type": "image",
+        "content": "",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779838343/%D0%90%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7_pkmpx4.png"
+      },
+      {
+        "id": "1779838805425",
+        "type": "text",
+        "content": "Анализ конкурентов",
+        "url": ""
+      },
+      {
+        "id": "1779838815264",
+        "type": "image",
+        "content": "",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779838344/%D0%A0%D0%B5%D1%84%D0%B5%D1%80%D0%B5%D0%BD%D1%81%D1%8B_uura7h.png"
+      },
+      {
+        "id": "1779838848481",
+        "type": "text",
+        "content": "Работа с референсами",
+        "url": ""
+      },
+      {
+        "id": "1779838883682",
+        "type": "heading",
+        "content": "Разработка",
+        "url": ""
+      },
+      {
+        "id": "1779838903478",
+        "type": "image",
+        "content": "",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779838344/%D0%9F%D1%80%D0%BE%D1%86%D0%B5%D1%81%D1%81_nv7ucs.png"
+      },
+      {
+        "id": "1779838917420",
+        "type": "text",
+        "content": "Процесс работы",
+        "url": ""
+      },
+      {
+        "id": "1779838937499",
+        "type": "image",
+        "content": "",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779838344/%D0%A6%D0%B2%D0%B5%D1%82_%D0%A8%D1%80%D0%B8%D1%84%D1%82_fkhiz5.png"
+      },
+      {
+        "id": "1779838938344",
+        "type": "text",
+        "content": "Цвет и шрифт",
+        "url": ""
+      },
+      {
+        "id": "1779838939086",
+        "type": "image",
+        "content": "",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779838343/%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD_%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B0_htz7hz.png"
+      },
+      {
+        "id": "1779838939893",
+        "type": "text",
+        "content": "Дизайн система",
+        "url": ""
+      }
+    ],
+    "shortTitle": "Пулло",
+    "chapters": []
+  },
+  {
+    "id": "1779843580129",
+    "title": "Модус Банк",
+    "category": "uiux",
+    "coverImage": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779843537/%D0%9E%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0_1_lzn3tq.png",
+    "tags": [],
+    "year": "",
+    "blocks": [
+      {
+        "id": "1779843632609",
+        "type": "heading",
+        "content": "Основные экраны",
+        "url": ""
+      },
+      {
+        "id": "1779843663271",
+        "type": "image",
+        "content": "",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779843536/%D0%9A%D0%B0%D1%80%D1%82%D0%B0_%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4_1_he0uci.png"
+      },
+      {
+        "id": "1779843689205",
+        "type": "image",
+        "content": "",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779843536/8_iwmltt.png"
+      },
+      {
+        "id": "1779843703200",
+        "type": "image",
+        "content": "",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779843537/%D1%81%D1%82%D0%B0%D1%82%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D0%B0_1_plgzac.png"
+      },
+      {
+        "id": "1779843735995",
+        "type": "image",
+        "content": "",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779843536/9_lz960v.png"
+      },
+      {
+        "id": "1779843766443",
+        "type": "heading",
+        "content": "Исследования",
+        "url": ""
+      },
+      {
+        "id": "1779843774661",
+        "type": "image",
+        "content": "",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779843536/%D0%98%D1%81%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F_g8xxll.png"
+      },
+      {
+        "id": "1779843790949",
+        "type": "text",
+        "content": "Метод персон, интервью, анализ функций",
+        "url": ""
+      },
+      {
+        "id": "1779843866742",
+        "type": "image",
+        "content": "",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779843537/%D0%A1%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0_uq5iwx.png"
+      },
+      {
+        "id": "1779843880874",
+        "type": "text",
+        "content": "Структура",
+        "url": ""
+      },
+      {
+        "id": "1779843888523",
+        "type": "image",
+        "content": "",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779843535/cjm_v1lwwl.png"
+      },
+      {
+        "id": "1779843900365",
+        "type": "text",
+        "content": "CJM",
+        "url": ""
+      },
+      {
+        "id": "1779843909464",
+        "type": "heading",
+        "content": "!Проект в разработке",
+        "url": ""
+      },
+      {
+        "id": "1779843925478",
+        "type": "text",
+        "content": "Июль 2026",
+        "url": ""
+      },
+      {
+        "id": "1779843939726",
+        "type": "image",
+        "content": "",
+        "url": "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779843536/Frame_94373_supare.png"
+      }
+    ],
+    "shortTitle": "Модус Банк",
+    "chapters": []
+  }
+];
+
+const NAV = [
+  ["about", "Обо мне"],
+  ["uiux", "UI/UX"],
+  ["branding", "Branding"],
+  ["fun", "Вайб"],
+];
+
+function useScrollSpy(ids) {
+  const [active, setActive] = useState(ids[0] || "");
+  useEffect(() => {
+    if (!ids.length) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.dataset.chid);
+        });
+      },
+      { rootMargin: "-15% 0px -70% 0px" }
+    );
+    ids.forEach((id) => {
+      const el = document.querySelector(`[data-chid="${id}"]`);
+      if (el) obs.observe(el);
+    });
+    return () => obs.disconnect();
+  }, [ids.join(",")]);
+  return [active, setActive];
+}
+
+function Header({ pg, navigate, lang, setLang, showBack, onBack }) {
+  const navTrackRef = useRef(null); const navPillRef = useRef(null); const navRowRef = useRef(null);
+  const langTrackRef = useRef(null); const langPillRef = useRef(null); const langRowRef = useRef(null);
+  const linkRefs = useRef([]); const langRefs = useRef([]);
+  const [navDot, setNavDot] = useState(0); const [langDot, setLangDot] = useState(0);
+
+  const syncIndicators = () => {
+    const pill = navPillRef.current; const row = navRowRef.current;
+    const idx = NAV.findIndex(([p]) => p === pg);
+    const btn = linkRefs.current[idx];
+    if (pill && btn && row) {
+      pill.style.width = `${row.offsetWidth}px`;
+      const pr = pill.getBoundingClientRect(); const br = btn.getBoundingClientRect();
+      setNavDot(br.left - pr.left + br.width / 2);
+    }
+    const lPill = langPillRef.current; const lRow = langRowRef.current;
+    const lBtn = langRefs.current[lang === "ru" ? 0 : 1];
+    if (lPill && lBtn && lRow) {
+      lPill.style.width = `${lRow.offsetWidth}px`;
+      const pr = lPill.getBoundingClientRect(); const br = lBtn.getBoundingClientRect();
+      setLangDot(br.left - pr.left + br.width / 2);
+    }
+  };
+
+  useEffect(() => {
+    syncIndicators();
+    let raf = requestAnimationFrame(syncIndicators);
+    const t1 = setTimeout(syncIndicators, 80);
+    const handleObserver = () => { raf = requestAnimationFrame(syncIndicators); };
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(handleObserver) : null;
+    [navTrackRef, langTrackRef].forEach((r) => { if (ro && r.current) ro.observe(r.current); });
+    window.addEventListener("resize", handleObserver);
+    return () => {
+      cancelAnimationFrame(raf); clearTimeout(t1);
+      ro?.disconnect(); window.removeEventListener("resize", handleObserver);
+    };
+  }, [pg, lang]);
+
+  return (
+    <header className="hdr">
+      <div className="hdr-left">
+        {showBack && (
+          <button className="back-btn" onClick={onBack}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg> Назад
+          </button>
+        )}
+      </div>
+      <div className="hdr-center">
+        <div className="nav-track" ref={navTrackRef}>
+          <div className="pill" ref={navPillRef} style={{cursor:"pointer"}} onClick={(e)=>{
+              const row=navRowRef.current; if(!row) return;
+              const btns=Array.from(row.querySelectorAll("button"));
+              const x=e.clientX; let best=btns[0], bd=Infinity;
+              btns.forEach(b=>{const r=b.getBoundingClientRect(),d=Math.abs(r.left+r.width/2-x);if(d<bd){bd=d;best=b;}});
+              best.click();
+            }}><span className="pill-dot" style={{ left: navDot }} /></div>
+          <nav className="nav-row" ref={navRowRef}>
+            {NAV.map(([p, label], i) => (
+              <button key={p} ref={(el) => { linkRefs.current[i] = el; }} className={`nav-link${pg === p ? " act" : " dim"}`} onClick={() => navigate(p)}>{label}</button>
+            ))}
+          </nav>
+        </div>
+      </div>
+      <div className="hdr-right"></div>
+    </header>
+  );
+}
+
+function ProWorkCard({ about, caseData, coverImage }) {
+  const title = caseData?.shortTitle || caseData?.title || "ПроВорк";
+  const tags = caseData?.tags || ["UI / UX", "Identity"];
+  if (coverImage) {
+    return (
+      <div className="pw-card">
+        <img src={coverImage} alt={title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+      </div>
+    );
+  }
+  return (
+    <div className="pw-card">
+      <div className="pw-meta"><span>{about.name}</span><span>{tags[0] || "UI / UX"}</span><span>{tags[1] || "Identity"}</span></div>
+      <div className="pw-bg-title">{title}</div>
+      <span className="pw-star">★</span>
+      <div className="pw-shapes"><div className="pw-shape s1" /><div className="pw-shape s2" /><div className="pw-shape s3" /><div className="pw-shape s4" /></div>
+      <div className="pw-mockup">Мокап приложения</div>
+      <div className="pw-bottom">
+        <div><span className="pw-app-tag">Приложение</span><p className="pw-desc">для поиска работы и найма персонала</p></div>
+        <span className="pw-tag">[*ProWork]</span>
+      </div>
+    </div>
+  );
+}
+
+function contactHref(k, v) {
+  if (!v) return null;
+  if (k === "email") return `mailto:${v}`;
+  return v.startsWith("http") ? v : `https://${v}`;
+}
+
+function AboutPage({ about, cases, navigate }) {
+  const c = about.contacts || {};
+  const left = [["email", "Почта", c.email], ["telegram", "Telegram", c.telegram]];
+  const right = [["behance", "Behance", c.behance], ["dprofile", "Dprofile", c.dprofile]];
+
+  return (
+    <div className="page about-page">
+      <div className="about-viewport">
+        <div className="about-hero">
+          <div className="about-photo-wrap">
+            {about.photo ? <img className="about-photo" src={about.photo} alt={about.name} /> : <div className="about-ph"></div>}
+          </div>
+          <div className="about-info">
+            <h1 className="about-name">{about.name}</h1>
+            <p className="about-bio">{about.bio}</p>
+          </div>
+        </div>
+        
+        <div className="about-contacts" style={{paddingLeft:"calc(var(--photo) + var(--hero-gap))"}}>
+          <h3>Связаться</h3>
+          <div className="contacts-links">
+            <div className="links-group">
+              {left.map(([k, label, v]) => contactHref(k,v) ? <a key={k} href={contactHref(k,v)} target="_blank" rel="noreferrer">{label}</a> : <a key={k} href="#" className="muted" onClick={(e)=>e.preventDefault()}>{label}</a>)}
+            </div>
+            <div className="links-group">
+              {right.map(([k, label, v]) => contactHref(k,v) ? <a key={k} href={contactHref(k,v)} target="_blank" rel="noreferrer">{label}</a> : <a key={k} href="#" className="muted" onClick={(e)=>e.preventDefault()}>{label}</a>)}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Другие проекты (2 штуки) */}
+      {cases.filter(c => c.category !== "fun").length > 0 && (
+        <div className="next-cases">
+          <h3 className="next-cases-title">Мои проекты</h3>
+          <div className="next-cases-grid">
+            {[...cases.filter(c => c.category !== "fun")].sort(() => 0.5 - Math.random()).slice(0, 4).map((c) => (
+              <div key={c.id} className="next-card" onClick={() => navigate("case", c.id)}>
+                {c.coverImage ? <img src={c.coverImage} alt={c.title} /> : <div className="next-card-ph"><span>{c.shortTitle || c.title}</span></div>}
+                <div className="next-card-title">{c.shortTitle || c.title}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function CategoryView({ cases, about, navigate, category }) {
+  const filtered = cases.filter((c) => c.category === category);
+  const chIds = filtered.map(c => `cat-${c.id}`);
+  const [active, setActive] = useScrollSpy(chIds);
+
+  const scrollTo = (id) => {
+    const el = document.querySelector(`[data-chid="${id}"]`);
+    if (el) { el.scrollIntoView({ behavior: "smooth", block: "start" }); setActive(id); }
+  };
+
+  return (
+    <div className="page case-page-wrap">
+      <div className="case-page">
+        <div className="case-side-wrap">
+          <aside className="case-side">
+            <ul className="case-side-nav">
+              {filtered.map(c => (
+                <li key={c.id} className={active === `cat-${c.id}` ? "act" : ""} onClick={() => scrollTo(`cat-${c.id}`)}>
+                  {c.shortTitle || c.title}
+                </li>
+              ))}
+            </ul>
+          </aside>
+        </div>
+
+        <div className="case-main">
+          {filtered.length === 0 ? (
+             <p className="empty-msg">Проекты появятся после добавления через Admin</p>
+          ) : (
+            <div>
+              {filtered.map((c) => (
+                <div key={c.id} id={`cat-${c.id}`} data-chid={`cat-${c.id}`} className="cat-item" style={{marginBottom:"80px", scrollMarginTop:"100px"}} onClick={() => navigate("case", c.id)}>
+                  <h2 className="cat-heading" style={{fontSize:"clamp(1.5rem,3vw,2.2rem)", fontWeight:700, marginBottom:"24px", lineHeight:1.15}}>
+                    {c.title}
+                  </h2>
+                  {c.id === "prowork" ? (
+                    <ProWorkCard about={about} caseData={c} coverImage={c.coverImage} />
+                  ) : (
+                    <div className="pw-card" style={{aspectRatio:"5/4", display:"flex", alignItems:"center", justifyContent:"center"}}>
+                      {c.coverImage ? (
+                        <img src={c.coverImage} alt={c.title} style={{width:"100%", height:"100%", objectFit:"cover"}} />
+                      ) : (
+                        <span style={{fontSize:"1.4rem", fontWeight:600, color:"#c8c8c8"}}>{c.shortTitle || c.title}</span>
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CasePage({ caseData, cases, about, navigate }) {
+  // Нормализуем данные: если есть chapters, но нет blocks, используем chapters для рендера (обратная совместимость)
+  const blocks = caseData.blocks || [];
+  const chapters = caseData.chapters || [];
+  const useBlocks = blocks.length > 0;
+  
+  const headings = blocks.filter(b => b.type === "heading");
+  const chIds = useBlocks ? headings.map(h => h.id) : chapters.map((c) => c.id);
+  const [active, setActive] = useScrollSpy(chIds);
+
+  const scrollTo = (id) => {
+    const el = document.querySelector(`[data-chid="${id}"]`);
+    if (el) { el.scrollIntoView({ behavior: "smooth", block: "start" }); setActive(id); }
+  };
+
+  const isYT = (url) => url.includes("youtube.com") || url.includes("youtu.be");
+  const ytSrc = (url) => { const m = url.match(/(?:v=|youtu\.be\/)([^&?]+)/); return m ? `https://www.youtube.com/embed/${m[1]}` : url; };
+
+  return (
+    <div className="page case-page-wrap">
+      <div className="case-page">
+        <div className="case-side-wrap">
+          <aside className="case-side">
+            <ul className="case-side-nav">
+              {useBlocks
+                ? headings.map((h) => <li key={h.id} className={active === h.id ? "act" : ""} onClick={() => scrollTo(h.id)}>{h.content}</li>)
+                : chapters.map((ch) => <li key={ch.id} className={active === ch.id ? "act" : ""} onClick={() => scrollTo(ch.id)}>{ch.navTitle || ch.title}</li>)
+              }
+            </ul>
+          </aside>
+        </div>
+
+        <div className="case-main">
+          {caseData.coverImage && (
+            <img src={caseData.coverImage} alt={caseData.title} style={{width:"100%",display:"block",marginBottom:0,maxHeight:"80vh",objectFit:"cover",borderRadius:12}} />
+          )}
+          <h1 style={{fontSize:"clamp(2rem,4vw,3.8rem)",fontWeight:500,letterSpacing:"-0.04em",lineHeight:1.05,marginTop:28,marginBottom:6}}>{caseData.title}</h1>
+          {(caseData.tags && caseData.tags.length > 0) && (
+            <div style={{fontSize:".72rem",color:"var(--g)",letterSpacing:".06em",textTransform:"uppercase",marginBottom:44}}>
+              {[...caseData.tags, caseData.year].filter(Boolean).join(" · ")}
+            </div>
+          )}
+          <div>
+            {useBlocks ? blocks.map((b) => {
+              if (b.type === "heading") return <h2 key={b.id} id={"ch-" + b.id} data-chid={b.id} style={{fontSize:"clamp(1.6rem,3vw,2.6rem)",fontWeight:500,letterSpacing:"-0.03em",lineHeight:1.1,marginTop:56,marginBottom:20,scrollMarginTop:100}}>{b.content}</h2>;
+              if (b.type === "text") return <p key={b.id} style={{fontSize:"clamp(.95rem,1.2vw,1.1rem)",lineHeight:1.78,maxWidth:640,whiteSpace:"pre-wrap",marginBottom:32,color:"var(--k)"}}>{b.content}</p>;
+              if (b.type === "image") return b.url ? <img key={b.id} src={b.url} alt="" style={{width:"100%",display:"block",marginBottom:6,borderRadius:8}} /> : null;
+              if (b.type === "video") return b.url ? <div key={b.id} style={{marginBottom:6}}>{isYT(b.url) ? <iframe src={ytSrc(b.url)} allowFullScreen style={{width:"100%",aspectRatio:"16/9",border:"none",display:"block",borderRadius:8}} /> : <video src={b.url} controls style={{width:"100%",borderRadius:8}} />}</div> : null;
+              return null;
+            }) : chapters.map((ch) => (
+              <section key={ch.id} data-chid={ch.id} className="chapter-block">
+                <h2 className="chapter-title">{ch.title}</h2>
+                {ch.text && <p className="chapter-text">{ch.text}</p>}
+                {ch.media?.length > 0 && (
+                  <div className="ch-media">
+                    {ch.media.map((m, i) => m.type === "video" ? (isYT(m.url) ? <iframe key={i} src={ytSrc(m.url)} allowFullScreen title={`v${i}`} style={{width:"100%",aspectRatio:"16/9",border:"none",display:"block",borderRadius:8}} /> : <video key={i} src={m.url} controls style={{width:"100%",display:"block",borderRadius:8}} />) : <img key={i} src={m.url} alt={`media-${i}`} style={{width:"100%",display:"block",borderRadius:8,marginBottom:8}} />)}
+                  </div>
+                )}
+              </section>
+            ))}
+          </div>
+        </div>
+      </div>
+      
+      {/* Другие проекты */}
+      {cases.filter(c => c.id !== caseData.id && c.category !== "fun").length > 0 && (
+        <div className="next-cases">
+          <h3 className="next-cases-title">Мои проекты</h3>
+          <div className="next-cases-grid">
+            {[...cases.filter(c => c.id !== caseData.id && c.category !== "fun")].sort(() => 0.5 - Math.random()).slice(0, 2).map((c) => (
+              <div key={c.id} className="next-card" onClick={() => navigate("case", c.id)}>
+                {c.coverImage ? <img src={c.coverImage} alt={c.title} /> : <div className="next-card-ph"><span>{c.shortTitle || c.title}</span></div>}
+                <div className="next-card-title">{c.shortTitle || c.title}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+function FunPage({ cases, about, navigate }) {
+  const posters = [
+    "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779847747/%D0%B0%D0%BC_2_aayrxj.png",
+    "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779847746/2_1_2_xm11rg.png",
+    "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779847746/A4_-_68_fswoyp.png",
+    "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779847745/%D0%90%D0%9C_%D0%BF%D0%BB%D0%B0%D0%BA%D0%B0%D1%82_t4la1k.png",
+    "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779847745/%D0%BB%D0%BE%D0%B0_1_cnrved.png",
+    "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779847745/%D0%A1%D1%82%D0%B8%D0%BA%D0%B5%D1%80%D1%8B_r0ymts.png",
+  ];
+  const BASE_ANGLES  = [-12, 5, -4, 9, -7, 3];
+  const BASE_OFFSETS = [-80, 40, -25, 65, -50, 15];
+
+  const sectionRef = useRef(null);
+  const [visible, setVisible] = useState(0);
+  const [hovered, setHovered] = useState(-1);
+  const [lightbox, setLightbox] = useState(-1);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const el = sectionRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh * 1.1)));
+      setVisible(Math.floor(progress * (posters.length + 1)));
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const getCardTransform = (i) => {
+    if (visible <= i) return "translateX(calc(-50% + " + BASE_OFFSETS[i] + "px)) rotate(" + BASE_ANGLES[i] + "deg) translateY(80px)";
+    const angleOffset = hovered === -1 ? 0 : (i - hovered) * 3.5;
+    const xOffset = hovered === -1 ? 0 : (i - hovered) * 22;
+    const yOffset = hovered === i ? -18 : (hovered !== -1 ? Math.abs(i - hovered) * 6 : 0);
+    const scale = hovered === i ? 1.06 : 1;
+    return "translateX(calc(-50% + " + (BASE_OFFSETS[i] + xOffset) + "px)) rotate(" + (BASE_ANGLES[i] + angleOffset) + "deg) translateY(" + yOffset + "px) scale(" + scale + ")";
+  };
+
+  const btnStyle = {width:40, height:40, borderRadius:999, border:"none", background:"rgba(255,255,255,.15)", backdropFilter:"blur(8px)", color:"#fff", cursor:"pointer", fontSize:20, display:"flex", alignItems:"center", justifyContent:"center", transition:"background .2s", flexShrink:0};
+
+  return (
+    <div>
+      <div className="vibe-section-wrap" style={{maxWidth:1100, margin:"0 auto", padding:"80px 60px 0"}}>
+        <h2 style={{fontSize:"clamp(2.8rem,5vw,5.5rem)", fontWeight:400, letterSpacing:"-0.04em", lineHeight:1.0, marginBottom:48}}>Вайбкод</h2>
+        <div className="vibe-grid">
+          <img
+            src="https://res.cloudinary.com/dpymwjcbx/image/upload/v1779847627/Video_Project_1_uwxhb5_jgjfyp.gif"
+            alt="Circle Draft"
+            style={{width:"100%", display:"block"}}
+          />
+          <div>
+            <h3 style={{fontSize:"clamp(1.9rem,2.8vw,3rem)", fontWeight:400, letterSpacing:"-0.04em", marginBottom:24, lineHeight:1.0}}>Circle Draft by AM</h3>
+            <p style={{fontSize:"clamp(1rem,1.15vw,1.08rem)", lineHeight:1.42, fontWeight:300, color:"var(--k)", marginBottom:14}}>
+              В графических редакторах нельзя удобно скетчить формы и знаки — всегда нужно переключать инструменты, трудно соединять формы.
+            </p>
+            <p style={{fontSize:"clamp(1rem,1.15vw,1.08rem)", lineHeight:1.42, fontWeight:300, color:"var(--k)", marginBottom:36}}>
+              Я сделал редактор, в котором легко скетчить простыми формами как рисуешь кистью: объединяй, стирай, колесиком меняй размер. Реально удобно на этапе идеи — кто-то даже рисовал финальные лого.
+            </p>
+            <a
+              href="https://circle-draft-by-am.netlify.app/"
+              target="_blank"
+              rel="noreferrer"
+              style={{display:"inline-flex", alignItems:"center", gap:8, fontFamily:"var(--fb)", fontSize:".76rem", fontWeight:400, letterSpacing:".06em", padding:"13px 26px", background:"var(--k)", color:"#fff", textDecoration:"none", borderRadius:999, transition:"opacity .2s"}}
+              onMouseEnter={e => { e.currentTarget.style.opacity=".7"; }}
+              onMouseLeave={e => { e.currentTarget.style.opacity="1"; }}
+            >
+              Попробовать
+              <span style={{width:8,height:8,borderRadius:"50%",background:"#fff",display:"inline-block",flexShrink:0}}></span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div ref={sectionRef} style={{maxWidth:1100, margin:"140px auto 0", padding:"0 60px"}}>
+        <div style={{position:"relative", height:(posters.length * 160 + 200) + "px"}}>
+          <h2 style={{position:"sticky", top:110, fontSize:"clamp(2.8rem,5vw,5.5rem)", fontWeight:400, letterSpacing:"-0.04em", lineHeight:1.0, zIndex:0, color:"var(--k)", pointerEvents:"none", userSelect:"none"}}>Плакаты</h2>
+          <div style={{position:"sticky", top:90, zIndex:10, height:"0px"}}>
+            {posters.map((url, i) => (
+              <div
+                key={i}
+                style={{position:"absolute", top:70 + i * 8, left:"50%", transform:getCardTransform(i), width:"clamp(180px, 24vw, 320px)", opacity:visible > i ? 1 : 0, transition:"opacity .65s ease " + (i * 0.11) + "s, transform .7s cubic-bezier(.22,1,.36,1) " + (i * 0.05) + "s", transformOrigin:"center bottom", boxShadow:hovered === i ? "0 24px 60px rgba(0,0,0,.28)" : "0 8px 28px rgba(0,0,0,.15)", borderRadius:4, overflow:"hidden", cursor:"pointer", zIndex:hovered === i ? 20 : (posters.length - i)}}
+                onMouseEnter={() => setHovered(i)}
+                onMouseLeave={() => setHovered(-1)}
+                onClick={() => setLightbox(i)}
+              >
+                <img src={url} alt={"Плакат " + (i+1)} style={{width:"100%", display:"block", pointerEvents:"none"}} loading="lazy" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div style={{height:120}} />
+
+      {lightbox >= 0 && (
+        <div onClick={() => setLightbox(-1)} style={{position:"fixed", inset:0, zIndex:999, background:"rgba(0,0,0,.9)", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", cursor:"zoom-out"}}>
+          <div style={{display:"flex", alignItems:"center", justifyContent:"center", gap:20, width:"100%", padding:"0 24px"}}>
+            <button
+              onClick={e => { e.stopPropagation(); lightbox > 0 && setLightbox(lightbox - 1); }}
+              style={{...btnStyle, opacity: lightbox > 0 ? 1 : 0.2}}
+              onMouseEnter={e => { e.currentTarget.style.background="rgba(255,255,255,.3)"; }}
+              onMouseLeave={e => { e.currentTarget.style.background="rgba(255,255,255,.15)"; }}
+            >‹</button>
+            <img
+              src={posters[lightbox]}
+              alt="Плакат"
+              style={{maxWidth:"70vw", maxHeight:"80vh", display:"block", borderRadius:4, cursor:"default"}}
+              onClick={e => e.stopPropagation()}
+            />
+            <button
+              onClick={e => { e.stopPropagation(); lightbox < posters.length - 1 && setLightbox(lightbox + 1); }}
+              style={{...btnStyle, opacity: lightbox < posters.length - 1 ? 1 : 0.2}}
+              onMouseEnter={e => { e.currentTarget.style.background="rgba(255,255,255,.3)"; }}
+              onMouseLeave={e => { e.currentTarget.style.background="rgba(255,255,255,.15)"; }}
+            >›</button>
+          </div>
+          <button
+            onClick={() => setLightbox(-1)}
+            style={{...btnStyle, marginTop:24, fontSize:16}}
+            onMouseEnter={e => { e.currentTarget.style.background="rgba(255,255,255,.3)"; }}
+            onMouseLeave={e => { e.currentTarget.style.background="rgba(255,255,255,.15)"; }}
+          >✕</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+function AdminLogin({ onLogin }) {
+  const [pass, setPass] = useState(""); const [err, setErr] = useState("");
+  const go = () => (pass === PASS ? onLogin() : setErr("Неверный пароль"));
+  return (
+    <div className="login-wrap">
+      <div className="login-box">
+        <div className="login-title">Панель управления</div>
+        <div className="login-sub">Введите пароль для редактирования проектов</div>
+        <div className="fg">
+          <label className="fl">Пароль</label>
+          <input className="fi" type="password" value={pass} onChange={(e) => setPass(e.target.value)} onKeyDown={(e) => e.key === "Enter" && go()} placeholder="Введите пароль" />
+          {err && <div className="login-err">{err}</div>}
+        </div>
+        <button className="btn pr" onClick={go}>Войти</button>
+      </div>
+    </div>
+  );
+}
+
+function AdminDashboard({ about, cases, saveCases, setEditCase, setAdminPg, navigate }) {
+  const newCase = (cat) => {
+    setEditCase({ id: Date.now().toString(), title: "Новый проект", category: cat, coverImage: "", tags: [], year: "", blocks: [] });
+    setAdminPg("edit");
+  };
+  const del = (id) => { if (window.confirm("Удалить проект?")) saveCases(cases.filter((c) => c.id !== id)); };
+
+  const Section = ({ label, cat }) => {
+    const list = cases.filter((c) => c.category === cat);
+    return (
+      <div className="adm-section">
+        <div className="adm-section-hdr"><div className="adm-sec-title">{label}</div><button className="btn sm pr" onClick={() => newCase(cat)}>+ Добавить</button></div>
+        {list.length === 0 ? <div style={{ color: "var(--g)", fontSize: ".82rem" }}>Нет проектов</div> : list.map((c) => (
+          <div key={c.id} className="adm-card">
+            {c.coverImage ? <img className="adm-thumb" src={c.coverImage} alt={c.title} /> : <div className="adm-thumb-ph">—</div>}
+            <div className="adm-card-info">
+              <div className="adm-card-t">{c.title}</div>
+              <div className="adm-card-m">{[...(c.tags || []), c.year].filter(Boolean).join(" · ")}</div>
+            </div>
+            <div className="adm-card-acts">
+              <button className="btn sm" onClick={() => { setEditCase(c); setAdminPg("edit"); }}>Изменить</button>
+              <button className="btn sm dg" onClick={() => del(c.id)}>Удалить</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  return (
+    <div className="adm">
+      <div className="adm-hdr">
+        <div className="adm-title">Панель управления</div>
+        <div className="adm-actions">
+          <button className="btn" onClick={() => setAdminPg("about")}>Профиль</button>
+          <button className="btn" onClick={() => {
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(new Blob([JSON.stringify({about, cases}, null, 2)], {type:"application/json"}));
+            a.download = "portfolio-export.json"; a.click();
+          }}>Экспорт JSON ↓</button>
+          <button className="btn pr" onClick={() => navigate("about")}>← На сайт</button>
+        </div>
+      </div>
+      <div className="info-bar">Пароль: <strong>{PASS}</strong></div>
+      <Section label="UI/UX" cat="uiux" />
+      <Section label="Branding" cat="branding" />
+      <Section label="Вайб" cat="fun" />
+    </div>
+  );
+}
+
+function EditCase({ ec, cases, saveCases, setAdminPg }) {
+  const [f, setF] = useState(() => {
+    // Конвертация старых chapters в blocks для обратной совместимости
+    let initialBlocks = ec.blocks || [];
+    if (initialBlocks.length === 0 && ec.chapters && ec.chapters.length > 0) {
+      ec.chapters.forEach(ch => {
+        if (ch.title) initialBlocks.push({ id: `h_${Date.now()}_${Math.random()}`, type: 'heading', content: ch.title });
+        if (ch.text) initialBlocks.push({ id: `t_${Date.now()}_${Math.random()}`, type: 'text', content: ch.text });
+        if (ch.media && ch.media.length) {
+          ch.media.forEach(m => {
+            initialBlocks.push({ id: `m_${Date.now()}_${Math.random()}`, type: m.type, url: m.url });
+          });
+        }
+      });
+    }
+    return { ...ec, tags: ec.tags || [], blocks: initialBlocks };
+  });
+  
+  const [tagStr, setTagStr] = useState((ec.tags || []).join(", "));
+  const upd = (k, v) => setF((p) => ({ ...p, [k]: v }));
+
+  // Управление блоками
+  const addBlock = (type) => {
+    upd('blocks', [...f.blocks, { id: Date.now().toString(), type, content: '', url: '' }]);
+  };
+  const updBlock = (id, field, val) => {
+    upd('blocks', f.blocks.map(b => b.id === id ? { ...b, [field]: val } : b));
+  };
+  const delBlock = (id) => {
+    if (window.confirm("Удалить блок?")) upd('blocks', f.blocks.filter(b => b.id !== id));
+  };
+  const moveBlock = (idx, dir) => {
+    const newBlocks = [...f.blocks];
+    const temp = newBlocks[idx];
+    newBlocks[idx] = newBlocks[idx + dir];
+    newBlocks[idx + dir] = temp;
+    upd('blocks', newBlocks);
+  };
+
+  const save = () => {
+    const toSave = {
+      ...f,
+      tags: tagStr.split(",").map((t) => t.trim()).filter(Boolean),
+      chapters: [] // Очищаем старые разделы, так как теперь используются блоки
+    };
+    const exists = cases.find((c) => c.id === toSave.id);
+    saveCases(exists ? cases.map((c) => (c.id === toSave.id ? toSave : c)) : [...cases, toSave]);
+    setAdminPg("dashboard");
+  };
+
+  return (
+    <div className="adm">
+      <div className="adm-hdr">
+        <div className="adm-title">{ec.title === "Новый проект" ? "Новый проект" : `Редактировать: ${f.title}`}</div>
+        <div className="adm-actions">
+          <button className="btn" onClick={() => setAdminPg("dashboard")}>Отмена</button>
+          <button className="btn pr" onClick={save}>Сохранить</button>
+        </div>
+      </div>
+      
+      <div className="adm-section">
+        <div className="adm-sec-title" style={{ marginBottom: 16 }}>Основная информация</div>
+        <div className="adm-g2">
+          <div className="fg"><label className="fl">Название</label><input className="fi" value={f.title} onChange={(e) => upd("title", e.target.value)} /></div>
+          <div className="fg"><label className="fl">Короткое название (в меню)</label><input className="fi" value={f.shortTitle || ""} onChange={(e) => upd("shortTitle", e.target.value)} placeholder="ПроВорк" /></div>
+          <div className="fg"><label className="fl">Категория</label><select className="fi" value={f.category} onChange={(e) => upd("category", e.target.value)}><option value="uiux">UI/UX</option><option value="branding">Branding</option><option value="fun">Вайб</option></select></div>
+          <div className="fg"><label className="fl">Теги (через запятую)</label><input className="fi" value={tagStr} onChange={(e) => setTagStr(e.target.value)} /></div>
+        </div>
+        <div className="fg"><label className="fl">Обложка — URL</label><input className="fi" value={f.coverImage} onChange={(e) => upd("coverImage", e.target.value)} placeholder="https://..." /></div>
+      </div>
+
+      <div className="adm-section">
+        <div className="adm-section-hdr">
+          <div className="adm-sec-title">Содержимое кейса</div>
+          <div style={{display:"flex", gap: "8px", flexWrap: "wrap"}}>
+            <button className="btn sm pr" onClick={() => addBlock("heading")}>+ Заголовок</button>
+            <button className="btn sm pr" onClick={() => addBlock("text")}>+ Текст</button>
+            <button className="btn sm pr" onClick={() => addBlock("image")}>+ Фото</button>
+            <button className="btn sm pr" onClick={() => addBlock("video")}>+ Видео</button>
+          </div>
+        </div>
+        
+        {f.blocks.map((b, idx) => (
+          <div key={b.id} className="ch-edit">
+            <div className="ch-edit-hdr">
+              <span className="ch-edit-num">
+                {b.type === 'heading' ? 'Заголовок' : b.type === 'text' ? 'Текст' : b.type === 'image' ? 'Изображение' : 'Видео'}
+              </span>
+              <div style={{display:"flex",gap:4}}>
+                <button className="btn sm" onClick={() => moveBlock(idx, -1)} disabled={idx===0}>↑</button>
+                <button className="btn sm" onClick={() => moveBlock(idx, 1)} disabled={idx===f.blocks.length-1}>↓</button>
+                <button className="btn sm dg" onClick={() => delBlock(b.id)}>✕</button>
+              </div>
+            </div>
+
+            {b.type === 'heading' && (
+               <input className="fi" value={b.content} onChange={(e) => updBlock(b.id, 'content', e.target.value)} placeholder="Введите заголовок..." />
+            )}
+            {b.type === 'text' && (
+               <textarea className="fi" value={b.content} onChange={(e) => updBlock(b.id, 'content', e.target.value)} placeholder="Введите текст..." />
+            )}
+            {(b.type === 'image' || b.type === 'video') && (
+               <input className="fi" value={b.url} onChange={(e) => updBlock(b.id, 'url', e.target.value)} placeholder="URL медиафайла (https://...)" />
+            )}
+          </div>
+        ))}
+        {f.blocks.length === 0 && <p className="empty-msg">Добавьте блоки контента (Заголовок, фото, текст...)</p>}
+      </div>
+    </div>
+  );
+}
+
+function EditAbout({ about, saveAbout, setAdminPg }) {
+  const [f, setF] = useState({ ...about, contacts: { ...about.contacts } });
+  const upd = (k, v) => setF((p) => ({ ...p, [k]: v }));
+  const updC = (k, v) => setF((p) => ({ ...p, contacts: { ...p.contacts, [k]: v } }));
+  const save = () => { saveAbout(f); setAdminPg("dashboard"); };
+
+  return (
+    <div className="adm">
+      <div className="adm-hdr">
+        <div className="adm-title">Редактировать профиль</div>
+        <div className="adm-actions"><button className="btn" onClick={() => setAdminPg("dashboard")}>Отмена</button><button className="btn pr" onClick={save}>Сохранить</button></div>
+      </div>
+      <div className="adm-section">
+        <div className="adm-g2"><div className="fg"><label className="fl">Имя</label><input className="fi" value={f.name} onChange={(e) => upd("name", e.target.value)} /></div></div>
+        <div className="fg"><label className="fl">Фото — URL</label><input className="fi" value={f.photo} onChange={(e) => upd("photo", e.target.value)} /></div>
+        <div className="fg"><label className="fl">О себе</label><textarea className="fi" value={f.bio} onChange={(e) => upd("bio", e.target.value)} style={{ minHeight: 140 }} /></div>
+      </div>
+      <div className="adm-section">
+        <div className="adm-sec-title" style={{ marginBottom: 16 }}>Контакты</div>
+        {[["email", "Почта"], ["telegram", "Telegram"], ["behance", "Behance"], ["dprofile", "Dprofile"]].map(([k, lbl]) => (
+          <div key={k} className="fg"><label className="fl">{lbl}</label><input className="fi" value={f.contacts[k] || ""} onChange={(e) => updC(k, e.target.value)} /></div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [pg, setPg] = useState("about");
+  const [caseId, setCaseId] = useState(null);
+  const [cases, setCases] = useState([]);
+  const [about, setAbout] = useState(DEFAULT_ABOUT);
+  const [loaded, setLoaded] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [adminPg, setAdminPg] = useState("dashboard");
+  const [editCase, setEditCase] = useState(null);
+  const [lang, setLang] = useState("ru");
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const r = await storage.get("pf_cases_v3");
+        const parsed = r ? JSON.parse(r.value) : null;
+        setCases(parsed?.length ? parsed : DEFAULT_CASES);
+      } catch { setCases(DEFAULT_CASES); }
+      
+      try {
+        const r = await storage.get("pf_about_v3");
+        if (r) setAbout(JSON.parse(r.value));
+      } catch { /* defaults */ }
+      setLoaded(true);
+    })();
+  }, []);
+
+  const saveCases = async (nc) => {
+    setCases(nc);
+    try { await storage.set("pf_cases_v3", JSON.stringify(nc)); } catch { /* noop */ }
+  };
+  const saveAbout = async (na) => {
+    setAbout(na);
+    try { await storage.set("pf_about_v3", JSON.stringify(na)); } catch { /* noop */ }
+  };
+
+  const navigate = (p, id = null) => {
+    setPg(p);
+    if (id) setCaseId(id); else if (p !== "case") setCaseId(null);
+    window.scrollTo(0, 0);
+  };
+
+  const goAdmin = () => { setPg("admin"); setAdminPg("dashboard"); };
+
+  const currentCase = cases.find((c) => c.id === caseId);
+  const showBack = pg === "case" && currentCase;
+
+  if (!loaded) return <div style={{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"Roboto,sans-serif",color:"#ccc"}}>···</div>;
+
+  if (pg === "admin") {
+    if (!isAdmin) return <AdminLogin onLogin={() => setIsAdmin(true)} />;
+    if (adminPg === "edit" && editCase) return <EditCase ec={editCase} cases={cases} saveCases={saveCases} setAdminPg={setAdminPg} />;
+    if (adminPg === "about") return <EditAbout about={about} saveAbout={saveAbout} setAdminPg={setAdminPg} />;
+    return <AdminDashboard about={about} cases={cases} saveCases={saveCases} setEditCase={setEditCase} setAdminPg={setAdminPg} navigate={navigate} />;
+  }
+
+  return (
+    <>
+      <div className="shell">
+        <Header pg={pg === "case" ? currentCase?.category || "uiux" : pg} navigate={navigate} lang={lang} setLang={setLang} showBack={showBack} onBack={() => navigate(currentCase?.category || "uiux")} />
+        {pg === "about" && <AboutPage about={about} cases={cases} navigate={navigate} />}
+        {pg === "uiux" && <CategoryView cases={cases} about={about} navigate={navigate} category="uiux" />}
+        {pg === "branding" && <CategoryView cases={cases} about={about} navigate={navigate} category="branding" />}
+        {pg === "fun" && <FunPage cases={cases} about={about} navigate={navigate} />}
+        {pg === "case" && currentCase && <CasePage caseData={currentCase} cases={cases} about={about} navigate={navigate} />}
+      </div>
+      <button className="adm-link" onClick={goAdmin}>admin</button>
+    </>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+  </script>
+</body>
+</html>
