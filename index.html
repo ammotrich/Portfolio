@@ -1243,7 +1243,7 @@ function CasePage({ caseData, cases, about, navigate }) {
 
         <div className="case-main">
           {caseData.coverImage && (
-            <img src={caseData.coverImage} alt={caseData.title} style={{width:"100%",display:"block",marginBottom:0,maxHeight:"80vh",objectFit:"cover",borderRadius:12}} />
+            <img src={caseData.coverImage} alt={caseData.title} style={{width:"100%",display:"block",marginBottom:0,objectFit:"contain",borderRadius:12}} />
           )}
           <h1 style={{fontSize:"clamp(2rem,4vw,3.8rem)",fontWeight:500,letterSpacing:"-0.04em",lineHeight:1.05,marginTop:28,marginBottom:6}}>{caseData.title}</h1>
           {(caseData.tags && caseData.tags.length > 0) && (
