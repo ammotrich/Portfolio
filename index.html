@@ -19,7 +19,7 @@
     
     --pill-radius:999px;
     --pill-label-gap:clamp(12px,1.5vw,20px);
-    --pill-nav-h:clamp(28px,3.5vw,38px);
+    --pill-nav-h:clamp(36px,4.2vw,48px);
     --pill-lang-h:clamp(22px,2.5vw,30px);
     --dot-size:clamp(14px,1.8vw,18px);
     
@@ -33,7 +33,7 @@
     --hero-gap:clamp(40px,7vw,100px);
     --ease:cubic-bezier(.22,1,.36,1);
   }
-  body{font-family:var(--fb);background:var(--w);color:var(--k);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body{font-family:var(--fb);background:#f0f0f0;color:var(--k);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
   .shell{
     min-height:100vh;width:100%;max-width:var(--content-max);
@@ -307,6 +307,46 @@
   @media(max-width:1024px){
     :root{--nav-gap:clamp(12px,2vw,24px)}
   }
+  .language-switch{position:fixed;top:24px;left:28px;z-index:1100;display:flex;gap:2px;padding:3px;background:#f2f2f2;border-radius:999px}
+  .language-switch button{border:0;background:transparent;color:var(--g);font:500 10px var(--fb);letter-spacing:.04em;padding:6px 8px;border-radius:999px;cursor:pointer}
+  .language-switch button.selected{background:var(--k);color:#fff}
+  .language-switch button:focus-visible,.case-side-nav button:focus-visible{outline:2px solid var(--orange);outline-offset:4px}
+  .back-btn{top:64px}
+  .adm{padding-top:80px}
+  .vibe-side-wrap{z-index:20;width:150px}
+  .vibe-side-wrap .case-side-nav button{font:inherit;color:inherit;background:none;border:0;text-align:left;padding:0;cursor:pointer;line-height:1.45}
+  .vibe-main{max-width:960px}
+  .vibe-main .vibe-intro{padding:0;margin:40px 0 0}
+  .vibe-main .vibe-section-wrap{padding-left:0!important;padding-right:0!important;max-width:none!important}
+  .vibe-main .case-main{max-width:none}
+  /* Вайб: колонка строго по центру, слева и справа одинаковые поля под боковое меню */
+  .vibe-page .vibe-main{width:calc(100% - 320px);max-width:960px;margin-left:auto;margin-right:auto}
+  @media(max-width:1023px){.vibe-page .vibe-main{width:100%}}
+  @media(min-width:769px) and (max-width:1023px){
+    .vibe-page>.case-page{flex-direction:column;gap:24px}
+    .vibe-side-wrap{position:static;width:100%}
+    .vibe-side-wrap .case-side{position:static;transform:none}
+    .vibe-side-wrap .case-side-nav{flex-direction:row;flex-wrap:wrap;gap:12px 20px}
+  }
+  @media(max-width:768px){.language-switch{top:14px;left:16px}.hdr{padding-top:36px}.back-btn{top:52px;left:12px}.vibe-side-wrap{width:100%;margin-top:10px}.vibe-main .vibe-intro{margin-top:8px}.vibe-page>.case-page{gap:24px}}
+  .vibe-intro{max-width:1100px;margin:40px auto 0;padding:0 60px;width:100%}
+  .vibe-intro p{font-size:clamp(1.2rem,1.8vw,2.1rem);line-height:1.35;letter-spacing:-.03em}
+  .vibe-nav{display:flex;flex-wrap:wrap;gap:16px 32px;margin-top:28px}
+  .vibe-nav a{color:var(--k);text-underline-offset:5px;font-size:.9rem}
+  /* Вайб — иерархия: H2 раздел > H3 проект/подраздел > текст */
+  .vibe-section{margin-top:clamp(72px,10vh,120px);padding-top:clamp(28px,4vh,44px);border-top:1px solid rgba(0,0,0,.16)}
+  #vibe-tools.vibe-section{margin-top:clamp(36px,6vh,64px)}
+  .vibe-heading{font-size:clamp(2.2rem,4vw,3.6rem);font-weight:500;letter-spacing:-.04em;line-height:1;margin:0 0 clamp(28px,4vh,44px)}
+  .vibe-subheading{font-size:clamp(1.35rem,2.1vw,1.9rem);font-weight:500;letter-spacing:-.03em;line-height:1.1;margin:0 0 18px}
+  .vibe-section .cat-item{margin-bottom:clamp(48px,7vh,72px)!important}
+  #vibe-tools,#vibe-branding,#vibe-graphics{scroll-margin-top:28px}
+  #vibe-branding .case-side-wrap,#vibe-graphics .case-side-wrap{display:none}
+  .block-summary{display:flex;align-items:center;gap:14px;min-width:0}
+  .block-thumb{width:120px;height:80px;object-fit:contain;background:#ebebeb;border-radius:6px;flex-shrink:0}
+  .block-thumb-ph{display:flex;align-items:center;justify-content:center;color:var(--g);font-size:.72rem}
+  .ch-edit-hdr{gap:12px;flex-wrap:wrap}
+  .btn:disabled{opacity:.3;cursor:default}
+  @media(max-width:768px){.vibe-intro{padding:0 20px}.adm-card{flex-wrap:wrap}.adm-card-acts{flex-wrap:wrap}.block-thumb{width:88px;height:64px}}
   .vibe-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
   @media(max-width:768px){
     .hdr{
@@ -375,9 +415,9 @@ const PASS = "design2024";
 
 const DEFAULT_ABOUT = {
   "name": "Александр Мотрич",
-  "title": "UI/UX и графический дизайнер",
+  "title": "Продуктовый и UI/UX-дизайнер",
   "photo": "https://res.cloudinary.com/dpymwjcbx/image/upload/q_auto/f_auto/v1779756599/Profile_Picture_hev3wz.png",
-  "bio": "UI/UX и графический дизайнер. Выпускник СПбГУПТД.\nИмею опыт работы с интерфейсами, разработкой мобильных приложений и брендингом.",
+  "bio": "Продуктовый и UI/UX-дизайнер. Проектирую мобильные и десктопные интерфейсы, разрабатываю пользовательские сценарии, структуру продукта и дизайн-системы.",
   "contacts": {
     "email": "motrich.mas@gmail.com",
     "telegram": "https://t.me/hcirtom",
@@ -977,10 +1017,147 @@ const DEFAULT_CASES = [
   }
 ];
 
+const EN = {"Редактировать:": "Edit:", "Блок": "Block", "Переместить блок": "Move block", "вверх": "up", "вниз": "down",
+  "Обо мне": "About me",
+  "Вайб": "Vibe",
+  "Назад": "Back",
+  "Александр Мотрич": "Alexander Motrich",
+  "Продуктовый и UI/UX-дизайнер": "Product and UI/UX designer",
+  "Продуктовый и UI/UX-дизайнер. Проектирую мобильные и десктопные интерфейсы, разрабатываю пользовательские сценарии, структуру продукта и дизайн-системы.": "Product and UI/UX designer. I design mobile and desktop interfaces, user flows, product structures, and design systems.",
+  "Модус Банк": "Modus Bank",
+  "ПроВорк": "ProWork",
+  "ПроВорк / Приложение для поиска работы": "ProWork / Job search app",
+  "Исследования": "Research",
+  "Метод персон, интервью, анализ функций": "Personas, interviews, and feature analysis",
+  "Структура": "Structure",
+  "Вайрфреймы": "Wireframes",
+  "Анализ персон, интервью, анализ конкурентов": "Persona research, interviews, and competitive analysis",
+  "Разбор аналогов": "Product benchmarking",
+  "Проектирование": "Design",
+  "Работа со стилистикой и референсами": "Visual direction and references",
+  "Работа над экранами": "Screen design",
+  "Приложение": "App",
+  "Компоненты": "Components",
+  "СТАЛ / Айдентика для компании, занимающейся работами со сталью": "STAL / Brand identity for a steel fabrication company",
+  "СТАЛ": "STAL",
+  "Логотипы": "Logos",
+  "Сервис для поиска работы": "Job search service",
+  "СОЮЗ Констракт Инжиниринг": "SOYUZ Construct Engineering",
+  "Промышленное предприятие по изготовлению оборудования, B2B": "B2B industrial equipment manufacturer",
+  "Прото": "Proto",
+  "Бренд одежды": "Clothing brand",
+  "Салон Алёны Бушуевой": "Alena Bushueva Studio",
+  "Перманентный макияж": "Permanent makeup",
+  "Стал": "Stal",
+  "Фабрика работы со сталью": "Steel fabrication company",
+  "Живая Сегежа": "Living Segezha",
+  "Фонд, сообщество активных горожан": "Foundation and community of active citizens",
+  "Крипто мини-апп": "Crypto mini app",
+  "АМ персональный знак": "AM personal monogram",
+  "Пулло / Сайт фабрики пластиковой тары": "Pullo / Website for a plastic packaging manufacturer",
+  "Пулло": "Pullo",
+  "Главная": "Home",
+  "Портфолио работ": "Project portfolio",
+  "Наши возможности": "Our capabilities",
+  "Анализ конкурентов": "Competitive analysis",
+  "Работа с референсами": "Reference exploration",
+  "Разработка": "Development",
+  "Процесс работы": "Design process",
+  "Цвет и шрифт": "Color and typography",
+  "Дизайн система": "Design system",
+  "Мокап приложения": "App mockup",
+  "для поиска работы и найма персонала": "for job searching and recruitment",
+  "Почта": "Email",
+  "Связаться": "Get in touch",
+  "Мои проекты": "My projects",
+  "Проекты появятся после добавления через Admin": "Projects will appear once added in the admin panel",
+  "Некоммерческие проекты, фан, эксперименты и графика.": "Non-commercial projects, fun, experiments, and graphics.",
+  "В графических редакторах нельзя удобно скетчить формы и знаки — всегда нужно переключать инструменты, трудно соединять формы.": "Sketching shapes and symbols in graphic editors can be awkward: you keep switching tools, and combining shapes is cumbersome.",
+  "Я сделал редактор, в котором легко скетчить простыми формами как рисуешь кистью: объединяй, стирай, колесиком меняй размер. Реально удобно на этапе идеи — кто-то даже рисовал финальные лого.": "I built an editor that lets you sketch with simple shapes as naturally as using a brush: combine, erase, and resize with the scroll wheel. It is great for exploring ideas — some people have even used it to create finished logos.",
+  "Попробовать": "Try it",
+  "Плакаты": "Posters",
+  "Плакат": "Poster",
+  "Разделы Вайб": "Vibe sections",
+  "Неверный пароль": "Incorrect password",
+  "Панель управления": "Admin panel",
+  "Введите пароль для редактирования проектов": "Enter your password to edit projects",
+  "Пароль": "Password",
+  "Введите пароль": "Enter password",
+  "Войти": "Sign in",
+  "Новый проект": "New project",
+  "Удалить проект?": "Delete this project?",
+  "+ Добавить": "+ Add",
+  "Нет проектов": "No projects yet",
+  "Изменить": "Edit",
+  "Удалить": "Delete",
+  "Профиль": "Profile",
+  "Экспорт JSON ↓": "Export JSON ↓",
+  "← На сайт": "← Back to site",
+  "Пароль:": "Password:",
+  "Будущий раздел PET": "Future PET section",
+  "Показывать PET в меню": "Show PET in the menu",
+  "Пункт появится только при включённой настройке и наличии хотя бы одного PET-проекта.": "The menu item appears when this setting is enabled and at least one PET project exists.",
+  "Вайб / Branding": "Vibe / Branding",
+  "Вайб / Graphics": "Vibe / Graphics",
+  "Нет превью": "No preview",
+  "Нет фото": "No image",
+  "Удалить блок?": "Delete this block?",
+  "Отмена": "Cancel",
+  "Сохранить": "Save",
+  "Основная информация": "Project details",
+  "Название": "Title",
+  "Короткое название (в меню)": "Short title (in the menu)",
+  "Категория": "Category",
+  "Теги (через запятую)": "Tags (comma-separated)",
+  "Обложка — URL": "Cover image URL",
+  "Содержимое кейса": "Case content",
+  "+ Заголовок": "+ Heading",
+  "+ Текст": "+ Text",
+  "+ Фото": "+ Image",
+  "+ Видео": "+ Video",
+  "Раздел": "Section",
+  "Заголовок": "Heading",
+  "Текст": "Text",
+  "Изображение": "Image",
+  "Видео": "Video",
+  "Введите заголовок...": "Enter heading...",
+  "Введите текст...": "Enter text...",
+  "URL медиафайла (https://...)": "Media URL (https://...)",
+  "Добавьте блоки контента (Заголовок, фото, текст...)": "Add content blocks (headings, images, text...)",
+  "Редактировать профиль": "Edit profile",
+  "Имя": "Name",
+  "Фото — URL": "Photo URL",
+  "О себе": "Bio",
+  "Контакты": "Contacts"
+};
+const LanguageContext = React.createContext("ru");
+const english = value => typeof value === "string" ? (EN[value] || value) : value;
+function useT() {
+  const lang = React.useContext(LanguageContext);
+  return value => lang === "en" ? english(value) : value;
+}
+function localizedField(obj, key, lang) {
+  return lang === "en" ? (obj[key + "En"] ?? english(obj[key])) : obj[key];
+}
+function localizeAbout(about, lang) {
+  return {...about, name:localizedField(about,"name",lang), title:localizedField(about,"title",lang), bio:localizedField(about,"bio",lang)};
+}
+function localizeCase(item, lang) {
+  return {...item, title:localizedField(item,"title",lang), shortTitle:localizedField(item,"shortTitle",lang),
+    tags:lang === "en" ? (item.tagsEn || (item.tags || []).map(english)) : item.tags,
+    blocks:(item.blocks || []).map(b=>({...b, content:localizedField(b,"content",lang)})),
+    chapters:(item.chapters || []).map(ch=>({...ch, title:localizedField(ch,"title",lang), navTitle:localizedField(ch,"navTitle",lang), text:localizedField(ch,"text",lang)}))};
+}
+function LanguageSwitch({lang, setLang}) {
+  return <div className="language-switch" role="group" aria-label={lang === "en" ? "Language" : "Язык"}>
+    {["ru","en"].map(value=><button key={value} aria-pressed={lang === value} className={lang === value ? "selected" : ""} onClick={()=>setLang(value)}>{value.toUpperCase()}</button>)}
+  </div>;
+}
+
 const NAV = [
   ["about", "Обо мне"],
   ["uiux", "UI/UX"],
-  ["branding", "Branding"],
+  ["pet", "PET"],
   ["fun", "Вайб"],
 ];
 
@@ -1005,7 +1182,9 @@ function useScrollSpy(ids) {
   return [active, setActive];
 }
 
-function Header({ pg, navigate, lang, setLang, showBack, onBack }) {
+function Header({ pg, navigate, lang, setLang, showBack, onBack, petVisible }) {
+  const t = useT();
+  const nav = NAV.filter(([p]) => p !== "pet" || petVisible);
   const navTrackRef = useRef(null); const navPillRef = useRef(null); const navRowRef = useRef(null);
   const langTrackRef = useRef(null); const langPillRef = useRef(null); const langRowRef = useRef(null);
   const linkRefs = useRef([]); const langRefs = useRef([]);
@@ -1013,7 +1192,7 @@ function Header({ pg, navigate, lang, setLang, showBack, onBack }) {
 
   const syncIndicators = () => {
     const pill = navPillRef.current; const row = navRowRef.current;
-    const idx = NAV.findIndex(([p]) => p === pg);
+    const idx = nav.findIndex(([p]) => p === pg);
     const btn = linkRefs.current[idx];
     if (pill && btn && row) {
       pill.style.width = `${row.offsetWidth}px`;
@@ -1041,15 +1220,14 @@ function Header({ pg, navigate, lang, setLang, showBack, onBack }) {
       cancelAnimationFrame(raf); clearTimeout(t1);
       ro?.disconnect(); window.removeEventListener("resize", handleObserver);
     };
-  }, [pg, lang]);
+  }, [pg, lang, petVisible]);
 
   return (
     <header className="hdr">
       <div className="hdr-left">
         {showBack && (
           <button className="back-btn" onClick={onBack}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg> Назад
-          </button>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg>{t("Назад")}</button>
         )}
       </div>
       <div className="hdr-center">
@@ -1062,8 +1240,8 @@ function Header({ pg, navigate, lang, setLang, showBack, onBack }) {
               best.click();
             }}><span className="pill-dot" style={{ left: navDot }} /></div>
           <nav className="nav-row" ref={navRowRef}>
-            {NAV.map(([p, label], i) => (
-              <button key={p} ref={(el) => { linkRefs.current[i] = el; }} className={`nav-link${pg === p ? " act" : " dim"}`} onClick={() => navigate(p)}>{label}</button>
+            {nav.map(([p, label], i) => (
+              <button key={p} ref={(el) => { linkRefs.current[i] = el; }} className={`nav-link${pg === p ? " act" : " dim"}`} onClick={() => navigate(p)}>{t(label)}</button>
             ))}
           </nav>
         </div>
@@ -1074,7 +1252,8 @@ function Header({ pg, navigate, lang, setLang, showBack, onBack }) {
 }
 
 function ProWorkCard({ about, caseData, coverImage }) {
-  const title = caseData?.shortTitle || caseData?.title || "ПроВорк";
+  const t = useT();
+  const title = caseData?.shortTitle || caseData?.title || t("ПроВорк");
   const tags = caseData?.tags || ["UI / UX", "Identity"];
   if (coverImage) {
     return (
@@ -1089,9 +1268,9 @@ function ProWorkCard({ about, caseData, coverImage }) {
       <div className="pw-bg-title">{title}</div>
       <span className="pw-star">★</span>
       <div className="pw-shapes"><div className="pw-shape s1" /><div className="pw-shape s2" /><div className="pw-shape s3" /><div className="pw-shape s4" /></div>
-      <div className="pw-mockup">Мокап приложения</div>
+      <div className="pw-mockup">{t("Мокап приложения")}</div>
       <div className="pw-bottom">
-        <div><span className="pw-app-tag">Приложение</span><p className="pw-desc">для поиска работы и найма персонала</p></div>
+        <div><span className="pw-app-tag">{t("Приложение")}</span><p className="pw-desc">{t("для поиска работы и найма персонала")}</p></div>
         <span className="pw-tag">[*ProWork]</span>
       </div>
     </div>
@@ -1105,8 +1284,9 @@ function contactHref(k, v) {
 }
 
 function AboutPage({ about, cases, navigate }) {
+  const t = useT();
   const c = about.contacts || {};
-  const left = [["email", "Почта", c.email], ["telegram", "Telegram", c.telegram]];
+  const left = [["email", t("Почта"), c.email], ["telegram", "Telegram", c.telegram]];
   const right = [["behance", "Behance", c.behance], ["dprofile", "Dprofile", c.dprofile]];
 
   return (
@@ -1123,7 +1303,7 @@ function AboutPage({ about, cases, navigate }) {
         </div>
         
         <div className="about-contacts" style={{paddingLeft:"calc(var(--photo) + var(--hero-gap))"}}>
-          <h3>Связаться</h3>
+          <h3>{t("Связаться")}</h3>
           <div className="contacts-links">
             <div className="links-group">
               {left.map(([k, label, v]) => contactHref(k,v) ? <a key={k} href={contactHref(k,v)} target="_blank" rel="noreferrer">{label}</a> : <a key={k} href="#" className="muted" onClick={(e)=>e.preventDefault()}>{label}</a>)}
@@ -1138,7 +1318,7 @@ function AboutPage({ about, cases, navigate }) {
       {/* Другие проекты (2 штуки) */}
       {cases.filter(c => c.category !== "fun").length > 0 && (
         <div className="next-cases">
-          <h3 className="next-cases-title">Мои проекты</h3>
+          <h3 className="next-cases-title">{t("Мои проекты")}</h3>
           <div className="next-cases-grid">
             {[...cases.filter(c => c.category !== "fun")].sort(() => 0.5 - Math.random()).slice(0, 4).map((c) => (
               <div key={c.id} className="next-card" onClick={() => navigate("case", c.id)}>
@@ -1153,7 +1333,8 @@ function AboutPage({ about, cases, navigate }) {
   );
 }
 
-function CategoryView({ cases, about, navigate, category }) {
+function CategoryView({ cases, about, navigate, category, hideEmpty = false, nested = false }) {
+  const t = useT();
   const filtered = cases.filter((c) => c.category === category);
   const chIds = filtered.map(c => `cat-${c.id}`);
   const [active, setActive] = useScrollSpy(chIds);
@@ -1163,6 +1344,7 @@ function CategoryView({ cases, about, navigate, category }) {
     if (el) { el.scrollIntoView({ behavior: "smooth", block: "start" }); setActive(id); }
   };
 
+  if (hideEmpty && !filtered.length) return null;
   return (
     <div className="page case-page-wrap">
       <div className="case-page">
@@ -1180,14 +1362,18 @@ function CategoryView({ cases, about, navigate, category }) {
 
         <div className="case-main">
           {filtered.length === 0 ? (
-             <p className="empty-msg">Проекты появятся после добавления через Admin</p>
+             <p className="empty-msg">{t("Проекты появятся после добавления через Admin")}</p>
           ) : (
             <div>
               {filtered.map((c) => (
                 <div key={c.id} id={`cat-${c.id}`} data-chid={`cat-${c.id}`} className="cat-item" style={{marginBottom:"80px", scrollMarginTop:"100px"}} onClick={() => navigate("case", c.id)}>
-                  <h2 className="cat-heading" style={{fontSize:"clamp(1.5rem,3vw,2.2rem)", fontWeight:700, marginBottom:"24px", lineHeight:1.15}}>
-                    {c.title}
-                  </h2>
+                  {nested ? (
+                    <h3 className="vibe-subheading">{c.title}</h3>
+                  ) : (
+                    <h2 className="cat-heading" style={{fontSize:"clamp(1.5rem,3vw,2.2rem)", fontWeight:700, marginBottom:"24px", lineHeight:1.15}}>
+                      {c.title}
+                    </h2>
+                  )}
                   {c.id === "prowork" ? (
                     <ProWorkCard about={about} caseData={c} coverImage={c.coverImage} />
                   ) : (
@@ -1210,6 +1396,7 @@ function CategoryView({ cases, about, navigate, category }) {
 }
 
 function CasePage({ caseData, cases, about, navigate }) {
+  const t = useT();
   // Нормализуем данные: если есть chapters, но нет blocks, используем chapters для рендера (обратная совместимость)
   const blocks = caseData.blocks || [];
   const chapters = caseData.chapters || [];
@@ -1276,7 +1463,7 @@ function CasePage({ caseData, cases, about, navigate }) {
       {/* Другие проекты */}
       {cases.filter(c => c.id !== caseData.id && c.category !== "fun").length > 0 && (
         <div className="next-cases">
-          <h3 className="next-cases-title">Мои проекты</h3>
+          <h3 className="next-cases-title">{t("Мои проекты")}</h3>
           <div className="next-cases-grid">
             {[...cases.filter(c => c.id !== caseData.id && c.category !== "fun")].sort(() => 0.5 - Math.random()).slice(0, 5).map((c) => (
               <div key={c.id} className="next-card" onClick={() => navigate("case", c.id)}>
@@ -1293,6 +1480,26 @@ function CasePage({ caseData, cases, about, navigate }) {
 
 
 function FunPage({ cases, about, navigate }) {
+  const t = useT();
+  const sections = [["vibe-tools","Design Tool"],["vibe-branding","Branding"],["vibe-graphics","Graphics"]];
+  const [activeSection, setActiveSection] = useState("vibe-tools");
+  useEffect(() => {
+    const sync = () => {
+      const marker = Math.min(innerHeight * .35, 220);
+      let next = sections[0][0];
+      sections.forEach(([id]) => {if (document.getElementById(id)?.getBoundingClientRect().top <= marker) next = id;});
+      setActiveSection(next);
+    };
+    const hashId = location.hash.slice(1);
+    const frame = requestAnimationFrame(()=>{if (sections.some(([id])=>id === hashId)) document.getElementById(hashId)?.scrollIntoView({block:"start"}); sync();});
+    sync(); window.addEventListener("scroll",sync,{passive:true});
+    return ()=>{cancelAnimationFrame(frame);window.removeEventListener("scroll",sync);};
+  }, []);
+  const scrollSection = id => {
+    setActiveSection(id);
+    history.replaceState(null,"","#"+id);
+    document.getElementById(id)?.scrollIntoView({behavior:"smooth",block:"start"});
+  };
   const posters = [
     "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779847747/%D0%B0%D0%BC_2_aayrxj.png",
     "https://res.cloudinary.com/dpymwjcbx/image/upload/v1779847746/2_1_2_xm11rg.png",
@@ -1335,9 +1542,20 @@ function FunPage({ cases, about, navigate }) {
   const btnStyle = {width:40, height:40, borderRadius:999, border:"none", background:"rgba(255,255,255,.15)", backdropFilter:"blur(8px)", color:"#fff", cursor:"pointer", fontSize:20, display:"flex", alignItems:"center", justifyContent:"center", transition:"background .2s", flexShrink:0};
 
   return (
-    <div>
-      <div className="vibe-section-wrap" style={{maxWidth:1100, margin:"0 auto", padding:"80px 60px 0"}}>
-        <h2 style={{fontSize:"clamp(1.8rem,3vw,3rem)", fontWeight:400, letterSpacing:"-0.03em", lineHeight:1.0, marginBottom:36}}>Вайбкод</h2>
+    <div className="vibe-page case-page-wrap">
+      <div className="case-page">
+        <div className="case-side-wrap vibe-side-wrap"><aside className="case-side">
+          <nav aria-label={t("Разделы Вайб")}><ul className="case-side-nav">
+            {sections.map(([id,label])=><li key={id} className={activeSection === id ? "act" : ""}><button aria-current={activeSection === id ? "location" : undefined} onClick={()=>scrollSection(id)}>{t(label)}</button></li>)}
+          </ul></nav>
+        </aside></div>
+        <div className="case-main vibe-main">
+      <div className="vibe-intro">
+        <p>{t("Некоммерческие проекты, фан, эксперименты и графика.")}</p>
+
+      </div>
+      <section id="vibe-tools" className="vibe-section-wrap vibe-section">
+        <h2 className="vibe-heading">{t("Design Tool")}</h2>
         <div className="vibe-grid">
           <img
             src="https://res.cloudinary.com/dpymwjcbx/image/upload/v1779847627/Video_Project_1_uwxhb5_jgjfyp.gif"
@@ -1345,13 +1563,9 @@ function FunPage({ cases, about, navigate }) {
             style={{width:"100%", display:"block"}}
           />
           <div>
-            <h3 style={{fontSize:"clamp(1.9rem,2.8vw,3rem)", fontWeight:400, letterSpacing:"-0.04em", marginBottom:24, lineHeight:1.0}}>Circle Draft by AM</h3>
-            <p style={{fontSize:"clamp(1rem,1.15vw,1.08rem)", lineHeight:1.42, fontWeight:300, color:"var(--k)", marginBottom:14}}>
-              В графических редакторах нельзя удобно скетчить формы и знаки — всегда нужно переключать инструменты, трудно соединять формы.
-            </p>
-            <p style={{fontSize:"clamp(1rem,1.15vw,1.08rem)", lineHeight:1.42, fontWeight:300, color:"var(--k)", marginBottom:36}}>
-              Я сделал редактор, в котором легко скетчить простыми формами как рисуешь кистью: объединяй, стирай, колесиком меняй размер. Реально удобно на этапе идеи — кто-то даже рисовал финальные лого.
-            </p>
+            <h3 className="vibe-subheading">Circle Draft by AM</h3>
+            <p style={{fontSize:"clamp(1rem,1.15vw,1.08rem)", lineHeight:1.42, fontWeight:300, color:"var(--k)", marginBottom:14}}>{t("В графических редакторах нельзя удобно скетчить формы и знаки — всегда нужно переключать инструменты, трудно соединять формы.")}</p>
+            <p style={{fontSize:"clamp(1rem,1.15vw,1.08rem)", lineHeight:1.42, fontWeight:300, color:"var(--k)", marginBottom:36}}>{t("Я сделал редактор, в котором легко скетчить простыми формами как рисуешь кистью: объединяй, стирай, колесиком меняй размер. Реально удобно на этапе идеи — кто-то даже рисовал финальные лого.")}</p>
             <a
               href="https://circle-draft-by-am.netlify.app/"
               target="_blank"
@@ -1359,17 +1573,21 @@ function FunPage({ cases, about, navigate }) {
               style={{display:"inline-flex", alignItems:"center", gap:8, fontFamily:"var(--fb)", fontSize:".76rem", fontWeight:400, letterSpacing:".06em", padding:"13px 26px", background:"var(--k)", color:"#fff", textDecoration:"none", borderRadius:999, transition:"opacity .2s"}}
               onMouseEnter={e => { e.currentTarget.style.opacity=".7"; }}
               onMouseLeave={e => { e.currentTarget.style.opacity="1"; }}
-            >
-              Попробовать
-              <span style={{width:8,height:8,borderRadius:"50%",background:"#fff",display:"inline-block",flexShrink:0}}></span>
+            >{t("Попробовать")}<span style={{width:8,height:8,borderRadius:"50%",background:"#fff",display:"inline-block",flexShrink:0}}></span>
             </a>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div ref={sectionRef} style={{maxWidth:1100, margin:"140px auto 0", padding:"0 60px"}}>
+      <section id="vibe-branding" className="vibe-section-wrap vibe-section">
+        <h2 className="vibe-heading">{t("Branding")}</h2>
+        <CategoryView cases={cases} about={about} navigate={navigate} category="branding" nested />
+      </section>
+      <section id="vibe-graphics" ref={sectionRef} className="vibe-section-wrap vibe-section">
+        <h2 className="vibe-heading">{t("Graphics")}</h2>
+        <CategoryView cases={cases} about={about} navigate={navigate} category="fun" hideEmpty nested />
         <div style={{position:"relative", height:(posters.length * 160 + 200) + "px"}}>
-          <h2 style={{position:"sticky", top:110, fontSize:"clamp(1.8rem,3vw,3rem)", fontWeight:400, letterSpacing:"-0.03em", lineHeight:1.0, zIndex:0, color:"var(--k)", pointerEvents:"none", userSelect:"none"}}>Плакаты</h2>
+          <h3 className="vibe-subheading" style={{position:"sticky", top:110, margin:0, zIndex:0, color:"var(--k)", pointerEvents:"none", userSelect:"none"}}>{t("Плакаты")}</h3>
           <div style={{position:"sticky", top:90, zIndex:10, height:"0px"}}>
             {posters.map((url, i) => (
               <div
@@ -1379,14 +1597,16 @@ function FunPage({ cases, about, navigate }) {
                 onMouseLeave={() => setHovered(-1)}
                 onClick={() => setLightbox(i)}
               >
-                <img src={url} alt={"Плакат " + (i+1)} style={{width:"100%", display:"block", pointerEvents:"none"}} loading="lazy" />
+                <img src={url} alt={t("Плакат") + " " + (i+1)} style={{width:"100%", display:"block", pointerEvents:"none"}} loading="lazy" />
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
       <div style={{height:120}} />
+        </div>
+      </div>
 
       {lightbox >= 0 && (
         <div onClick={() => setLightbox(-1)} style={{position:"fixed", inset:0, zIndex:999, background:"rgba(0,0,0,.9)", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", cursor:"zoom-out"}}>
@@ -1399,7 +1619,7 @@ function FunPage({ cases, about, navigate }) {
             >‹</button>
             <img
               src={posters[lightbox]}
-              alt="Плакат"
+              alt={t("Плакат")}
               style={{maxWidth:"70vw", maxHeight:"80vh", display:"block", borderRadius:4, cursor:"default"}}
               onClick={e => e.stopPropagation()}
             />
@@ -1424,46 +1644,49 @@ function FunPage({ cases, about, navigate }) {
 
 
 function AdminLogin({ onLogin }) {
+  const t = useT();
   const [pass, setPass] = useState(""); const [err, setErr] = useState("");
   const go = () => (pass === PASS ? onLogin() : setErr("Неверный пароль"));
   return (
     <div className="login-wrap">
       <div className="login-box">
-        <div className="login-title">Панель управления</div>
-        <div className="login-sub">Введите пароль для редактирования проектов</div>
+        <div className="login-title">{t("Панель управления")}</div>
+        <div className="login-sub">{t("Введите пароль для редактирования проектов")}</div>
         <div className="fg">
-          <label className="fl">Пароль</label>
-          <input className="fi" type="password" value={pass} onChange={(e) => setPass(e.target.value)} onKeyDown={(e) => e.key === "Enter" && go()} placeholder="Введите пароль" />
-          {err && <div className="login-err">{err}</div>}
+          <label className="fl">{t("Пароль")}</label>
+          <input className="fi" type="password" value={pass} onChange={(e) => setPass(e.target.value)} onKeyDown={(e) => e.key === "Enter" && go()} placeholder={t("Введите пароль")} />
+          {err && <div className="login-err">{t(err)}</div>}
         </div>
-        <button className="btn pr" onClick={go}>Войти</button>
+        <button className="btn pr" onClick={go}>{t("Войти")}</button>
       </div>
     </div>
   );
 }
 
-function AdminDashboard({ about, cases, saveCases, setEditCase, setAdminPg, navigate }) {
+function AdminDashboard({ about, cases, saveCases, setEditCase, setAdminPg, navigate, settings, saveSettings }) {
+  const t = useT();
+  const editLang = React.useContext(LanguageContext);
   const newCase = (cat) => {
     setEditCase({ id: Date.now().toString(), title: "Новый проект", category: cat, coverImage: "", tags: [], year: "", blocks: [] });
     setAdminPg("edit");
   };
-  const del = (id) => { if (window.confirm("Удалить проект?")) saveCases(cases.filter((c) => c.id !== id)); };
+  const del = (id) => { if (window.confirm(t("Удалить проект?"))) saveCases(cases.filter((c) => c.id !== id)); };
 
   const Section = ({ label, cat }) => {
     const list = cases.filter((c) => c.category === cat);
     return (
       <div className="adm-section">
-        <div className="adm-section-hdr"><div className="adm-sec-title">{label}</div><button className="btn sm pr" onClick={() => newCase(cat)}>+ Добавить</button></div>
-        {list.length === 0 ? <div style={{ color: "var(--g)", fontSize: ".82rem" }}>Нет проектов</div> : list.map((c) => (
+        <div className="adm-section-hdr"><div className="adm-sec-title">{label}</div><button className="btn sm pr" onClick={() => newCase(cat)}>{t("+ Добавить")}</button></div>
+        {list.length === 0 ? <div style={{ color: "var(--g)", fontSize: ".82rem" }}>{t("Нет проектов")}</div> : list.map((c) => (
           <div key={c.id} className="adm-card">
             {c.coverImage ? <img className="adm-thumb" src={c.coverImage} alt={c.title} /> : <div className="adm-thumb-ph">—</div>}
             <div className="adm-card-info">
-              <div className="adm-card-t">{c.title}</div>
+              <div className="adm-card-t">{localizedField(c,"title",editLang)}</div>
               <div className="adm-card-m">{[...(c.tags || []), c.year].filter(Boolean).join(" · ")}</div>
             </div>
             <div className="adm-card-acts">
-              <button className="btn sm" onClick={() => { setEditCase(c); setAdminPg("edit"); }}>Изменить</button>
-              <button className="btn sm dg" onClick={() => del(c.id)}>Удалить</button>
+              <button className="btn sm" onClick={() => { setEditCase(c); setAdminPg("edit"); }}>{t("Изменить")}</button>
+              <button className="btn sm dg" onClick={() => del(c.id)}>{t("Удалить")}</button>
             </div>
           </div>
         ))}
@@ -1474,33 +1697,51 @@ function AdminDashboard({ about, cases, saveCases, setEditCase, setAdminPg, navi
   return (
     <div className="adm">
       <div className="adm-hdr">
-        <div className="adm-title">Панель управления</div>
+        <div className="adm-title">{t("Панель управления")}</div>
         <div className="adm-actions">
-          <button className="btn" onClick={() => setAdminPg("about")}>Профиль</button>
+          <button className="btn" onClick={() => setAdminPg("about")}>{t("Профиль")}</button>
           <button className="btn" onClick={() => {
             const a = document.createElement("a");
-            a.href = URL.createObjectURL(new Blob([JSON.stringify({about, cases}, null, 2)], {type:"application/json"}));
+            a.href = URL.createObjectURL(new Blob([JSON.stringify({about, cases, settings}, null, 2)], {type:"application/json"}));
             a.download = "portfolio-export.json"; a.click();
-          }}>Экспорт JSON ↓</button>
-          <button className="btn pr" onClick={() => navigate("about")}>← На сайт</button>
+          }}>{t("Экспорт JSON ↓")}</button>
+          <button className="btn pr" onClick={() => navigate("about")}>{t("← На сайт")}</button>
         </div>
       </div>
-      <div className="info-bar">Пароль: <strong>{PASS}</strong></div>
+      <div className="info-bar">{t("Пароль:")}<strong>{PASS}</strong></div>
       <Section label="UI/UX" cat="uiux" />
-      <Section label="Branding" cat="branding" />
-      <Section label="Вайб" cat="fun" />
+      <div className="adm-section">
+        <div className="adm-sec-title" style={{marginBottom:16}}>{t("Будущий раздел PET")}</div>
+        <label style={{display:"flex",gap:10,alignItems:"center",fontSize:".9rem"}}>
+          <input type="checkbox" checked={settings.showPet} onChange={e => saveSettings({...settings, showPet:e.target.checked})} />{t("Показывать PET в меню")}</label>
+        <p className="empty-msg">{t("Пункт появится только при включённой настройке и наличии хотя бы одного PET-проекта.")}</p>
+      </div>
+      <Section label="PET" cat="pet" />
+      <Section label={t("Вайб / Branding")} cat="branding" />
+      <Section label={t("Вайб / Graphics")} cat="fun" />
     </div>
   );
 }
 
+function ImageThumbnail({url, label}) {
+  const t = useT();
+  const [failed, setFailed] = useState(false);
+  useEffect(() => setFailed(false), [url]);
+  return url && !failed
+    ? <img className="block-thumb" src={url} alt={label} loading="lazy" onError={() => setFailed(true)} />
+    : <div className="block-thumb block-thumb-ph">{url ? t('Нет превью') : t('Нет фото')}</div>;
+}
+
 function EditCase({ ec, cases, saveCases, setAdminPg }) {
+  const t = useT();
+  const editLang = React.useContext(LanguageContext);
   const [f, setF] = useState(() => {
     // Конвертация старых chapters в blocks для обратной совместимости
-    let initialBlocks = ec.blocks || [];
+    let initialBlocks = (ec.blocks || []).map(b => ({...b}));
     if (initialBlocks.length === 0 && ec.chapters && ec.chapters.length > 0) {
       ec.chapters.forEach(ch => {
-        if (ch.title) initialBlocks.push({ id: `h_${Date.now()}_${Math.random()}`, type: 'heading', content: ch.title });
-        if (ch.text) initialBlocks.push({ id: `t_${Date.now()}_${Math.random()}`, type: 'text', content: ch.text });
+        if (ch.title) initialBlocks.push({ id: `h_${Date.now()}_${Math.random()}`, type: 'heading', content: ch.title, contentEn: ch.titleEn });
+        if (ch.text) initialBlocks.push({ id: `t_${Date.now()}_${Math.random()}`, type: 'text', content: ch.text, contentEn: ch.textEn });
         if (ch.media && ch.media.length) {
           ch.media.forEach(m => {
             initialBlocks.push({ id: `m_${Date.now()}_${Math.random()}`, type: m.type, url: m.url });
@@ -1522,9 +1763,10 @@ function EditCase({ ec, cases, saveCases, setAdminPg }) {
     upd('blocks', f.blocks.map(b => b.id === id ? { ...b, [field]: val } : b));
   };
   const delBlock = (id) => {
-    if (window.confirm("Удалить блок?")) upd('blocks', f.blocks.filter(b => b.id !== id));
+    if (window.confirm(t("Удалить блок?"))) upd('blocks', f.blocks.filter(b => b.id !== id));
   };
   const moveBlock = (idx, dir) => {
+    if (idx + dir < 0 || idx + dir >= f.blocks.length) return;
     const newBlocks = [...f.blocks];
     const temp = newBlocks[idx];
     newBlocks[idx] = newBlocks[idx + dir];
@@ -1546,66 +1788,76 @@ function EditCase({ ec, cases, saveCases, setAdminPg }) {
   return (
     <div className="adm">
       <div className="adm-hdr">
-        <div className="adm-title">{ec.title === "Новый проект" ? "Новый проект" : `Редактировать: ${f.title}`}</div>
+        <div className="adm-title">{ec.title === "Новый проект" ? t("Новый проект") : `${t("Редактировать:")} ${localizedField(f,"title",editLang)}`}</div>
         <div className="adm-actions">
-          <button className="btn" onClick={() => setAdminPg("dashboard")}>Отмена</button>
-          <button className="btn pr" onClick={save}>Сохранить</button>
+          <button className="btn" onClick={() => setAdminPg("dashboard")}>{t("Отмена")}</button>
+          <button className="btn pr" onClick={save}>{t("Сохранить")}</button>
         </div>
       </div>
       
       <div className="adm-section">
-        <div className="adm-sec-title" style={{ marginBottom: 16 }}>Основная информация</div>
+        <div className="adm-sec-title" style={{ marginBottom: 16 }}>{t("Основная информация")}</div>
         <div className="adm-g2">
-          <div className="fg"><label className="fl">Название</label><input className="fi" value={f.title} onChange={(e) => upd("title", e.target.value)} /></div>
-          <div className="fg"><label className="fl">Короткое название (в меню)</label><input className="fi" value={f.shortTitle || ""} onChange={(e) => upd("shortTitle", e.target.value)} placeholder="ПроВорк" /></div>
-          <div className="fg"><label className="fl">Категория</label><select className="fi" value={f.category} onChange={(e) => upd("category", e.target.value)}><option value="uiux">UI/UX</option><option value="branding">Branding</option><option value="fun">Вайб</option></select></div>
-          <div className="fg"><label className="fl">Теги (через запятую)</label><input className="fi" value={tagStr} onChange={(e) => setTagStr(e.target.value)} /></div>
+          <div className="fg"><label className="fl">{t("Название")}</label><input className="fi" value={localizedField(f,"title",editLang) || ""} onChange={(e) => upd(editLang === "en" ? "titleEn" : "title", e.target.value)} /></div>
+          <div className="fg"><label className="fl">{t("Короткое название (в меню)")}</label><input className="fi" value={localizedField(f,"shortTitle",editLang) || ""} onChange={(e) => upd(editLang === "en" ? "shortTitleEn" : "shortTitle", e.target.value)} placeholder={t("ПроВорк")} /></div>
+          <div className="fg"><label className="fl">{t("Категория")}</label><select className="fi" value={f.category} onChange={(e) => upd("category", e.target.value)}><option value="uiux">UI/UX</option><option value="pet">PET</option><option value="branding">{t("Вайб / Branding")}</option><option value="fun">{t("Вайб / Graphics")}</option></select></div>
+          <div className="fg"><label className="fl">{t("Теги (через запятую)")}</label><input className="fi" value={editLang === "en" ? (f.tagsEn || (f.tags || []).map(english)).join(", ") : tagStr} onChange={(e) => editLang === "en" ? upd("tagsEn",e.target.value.split(",").map(v=>v.trim()).filter(Boolean)) : setTagStr(e.target.value)} /></div>
         </div>
-        <div className="fg"><label className="fl">Обложка — URL</label><input className="fi" value={f.coverImage} onChange={(e) => upd("coverImage", e.target.value)} placeholder="https://..." /></div>
+        <div className="fg"><label className="fl">{t("Обложка — URL")}</label><input className="fi" value={f.coverImage} onChange={(e) => upd("coverImage", e.target.value)} placeholder="https://..." /></div>
       </div>
 
       <div className="adm-section">
         <div className="adm-section-hdr">
-          <div className="adm-sec-title">Содержимое кейса</div>
+          <div className="adm-sec-title">{t("Содержимое кейса")}</div>
           <div style={{display:"flex", gap: "8px", flexWrap: "wrap"}}>
-            <button className="btn sm pr" onClick={() => addBlock("heading")}>+ Заголовок</button>
-            <button className="btn sm pr" onClick={() => addBlock("text")}>+ Текст</button>
-            <button className="btn sm pr" onClick={() => addBlock("image")}>+ Фото</button>
-            <button className="btn sm pr" onClick={() => addBlock("video")}>+ Видео</button>
+            <button className="btn sm pr" onClick={() => addBlock("heading")}>{t("+ Заголовок")}</button>
+            <button className="btn sm pr" onClick={() => addBlock("text")}>{t("+ Текст")}</button>
+            <button className="btn sm pr" onClick={() => addBlock("image")}>{t("+ Фото")}</button>
+            <button className="btn sm pr" onClick={() => addBlock("video")}>{t("+ Видео")}</button>
           </div>
         </div>
         
         {f.blocks.map((b, idx) => (
           <div key={b.id} className="ch-edit">
             <div className="ch-edit-hdr">
-              <span className="ch-edit-num">
-                {b.type === 'heading' ? 'Заголовок' : b.type === 'text' ? 'Текст' : b.type === 'image' ? 'Изображение' : 'Видео'}
+              <div className="block-summary">
+                {b.type === 'image' && <ImageThumbnail url={b.url} label={`${t("Блок")} ${idx + 1}`} />}
+                {b.type === 'heading' && (() => {
+                  const nextHeading = f.blocks.findIndex((item, i) => i > idx && item.type === 'heading');
+                  const image = f.blocks.slice(idx + 1, nextHeading < 0 ? undefined : nextHeading).find(item => item.type === 'image' && item.url);
+                  return image ? <ImageThumbnail url={image.url} label={b.content || t('Раздел')} /> : null;
+                })()}
+              <span className="ch-edit-num">{idx + 1}. 
+                {b.type === 'heading' ? t('Заголовок') : b.type === 'text' ? t('Текст') : b.type === 'image' ? t('Изображение') : t('Видео')}
               </span>
+              </div>
               <div style={{display:"flex",gap:4}}>
-                <button className="btn sm" onClick={() => moveBlock(idx, -1)} disabled={idx===0}>↑</button>
-                <button className="btn sm" onClick={() => moveBlock(idx, 1)} disabled={idx===f.blocks.length-1}>↓</button>
+                <button className="btn sm" aria-label={`${t("Переместить блок")} ${idx + 1} ${t("вверх")}`} onClick={() => moveBlock(idx, -1)} disabled={idx===0}>↑</button>
+                <button className="btn sm" aria-label={`${t("Переместить блок")} ${idx + 1} ${t("вниз")}`} onClick={() => moveBlock(idx, 1)} disabled={idx===f.blocks.length-1}>↓</button>
                 <button className="btn sm dg" onClick={() => delBlock(b.id)}>✕</button>
               </div>
             </div>
 
             {b.type === 'heading' && (
-               <input className="fi" value={b.content} onChange={(e) => updBlock(b.id, 'content', e.target.value)} placeholder="Введите заголовок..." />
+               <input className="fi" value={localizedField(b,"content",editLang) || ""} onChange={(e) => updBlock(b.id, editLang === 'en' ? 'contentEn' : 'content', e.target.value)} placeholder={t("Введите заголовок...")} />
             )}
             {b.type === 'text' && (
-               <textarea className="fi" value={b.content} onChange={(e) => updBlock(b.id, 'content', e.target.value)} placeholder="Введите текст..." />
+               <textarea className="fi" value={localizedField(b,"content",editLang) || ""} onChange={(e) => updBlock(b.id, editLang === 'en' ? 'contentEn' : 'content', e.target.value)} placeholder={t("Введите текст...")} />
             )}
             {(b.type === 'image' || b.type === 'video') && (
-               <input className="fi" value={b.url} onChange={(e) => updBlock(b.id, 'url', e.target.value)} placeholder="URL медиафайла (https://...)" />
+               <input className="fi" value={b.url} onChange={(e) => updBlock(b.id, 'url', e.target.value)} placeholder={t("URL медиафайла (https://...)")} />
             )}
           </div>
         ))}
-        {f.blocks.length === 0 && <p className="empty-msg">Добавьте блоки контента (Заголовок, фото, текст...)</p>}
+        {f.blocks.length === 0 && <p className="empty-msg">{t("Добавьте блоки контента (Заголовок, фото, текст...)")}</p>}
       </div>
     </div>
   );
 }
 
 function EditAbout({ about, saveAbout, setAdminPg }) {
+  const t = useT();
+  const editLang = React.useContext(LanguageContext);
   const [f, setF] = useState({ ...about, contacts: { ...about.contacts } });
   const upd = (k, v) => setF((p) => ({ ...p, [k]: v }));
   const updC = (k, v) => setF((p) => ({ ...p, contacts: { ...p.contacts, [k]: v } }));
@@ -1614,46 +1866,57 @@ function EditAbout({ about, saveAbout, setAdminPg }) {
   return (
     <div className="adm">
       <div className="adm-hdr">
-        <div className="adm-title">Редактировать профиль</div>
-        <div className="adm-actions"><button className="btn" onClick={() => setAdminPg("dashboard")}>Отмена</button><button className="btn pr" onClick={save}>Сохранить</button></div>
+        <div className="adm-title">{t("Редактировать профиль")}</div>
+        <div className="adm-actions"><button className="btn" onClick={() => setAdminPg("dashboard")}>{t("Отмена")}</button><button className="btn pr" onClick={save}>{t("Сохранить")}</button></div>
       </div>
       <div className="adm-section">
-        <div className="adm-g2"><div className="fg"><label className="fl">Имя</label><input className="fi" value={f.name} onChange={(e) => upd("name", e.target.value)} /></div></div>
-        <div className="fg"><label className="fl">Фото — URL</label><input className="fi" value={f.photo} onChange={(e) => upd("photo", e.target.value)} /></div>
-        <div className="fg"><label className="fl">О себе</label><textarea className="fi" value={f.bio} onChange={(e) => upd("bio", e.target.value)} style={{ minHeight: 140 }} /></div>
+        <div className="adm-g2"><div className="fg"><label className="fl">{t("Имя")}</label><input className="fi" value={localizedField(f,"name",editLang) || ""} onChange={(e) => upd(editLang === "en" ? "nameEn" : "name", e.target.value)} /></div></div>
+        <div className="fg"><label className="fl">{t("Фото — URL")}</label><input className="fi" value={f.photo} onChange={(e) => upd("photo", e.target.value)} /></div>
+        <div className="fg"><label className="fl">{t("О себе")}</label><textarea className="fi" value={localizedField(f,"bio",editLang) || ""} onChange={(e) => upd(editLang === "en" ? "bioEn" : "bio", e.target.value)} style={{ minHeight: 140 }} /></div>
       </div>
       <div className="adm-section">
-        <div className="adm-sec-title" style={{ marginBottom: 16 }}>Контакты</div>
-        {[["email", "Почта"], ["telegram", "Telegram"], ["behance", "Behance"], ["dprofile", "Dprofile"]].map(([k, lbl]) => (
-          <div key={k} className="fg"><label className="fl">{lbl}</label><input className="fi" value={f.contacts[k] || ""} onChange={(e) => updC(k, e.target.value)} /></div>
+        <div className="adm-sec-title" style={{ marginBottom: 16 }}>{t("Контакты")}</div>
+        {[["email", t("Почта")], ["telegram", "Telegram"], ["behance", "Behance"], ["dprofile", "Dprofile"]].map(([k, lbl]) => (
+          <div key={k} className="fg"><label className="fl">{t(lbl)}</label><input className="fi" value={f.contacts[k] || ""} onChange={(e) => updC(k, e.target.value)} /></div>
         ))}
       </div>
     </div>
   );
 }
 
-function App() {
-  const [pg, setPg] = useState("about");
+function PortfolioApp({lang,setLang}) {
+  const [pg, setPg] = useState(() => /^#vibe-(tools|branding|graphics)$/.test(location.hash) ? "fun" : "about");
   const [caseId, setCaseId] = useState(null);
   const [cases, setCases] = useState([]);
   const [about, setAbout] = useState(DEFAULT_ABOUT);
+  const [settings, setSettings] = useState({showPet:false});
   const [loaded, setLoaded] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [adminPg, setAdminPg] = useState("dashboard");
   const [editCase, setEditCase] = useState(null);
-  const [lang, setLang] = useState("ru");
+
 
   useEffect(() => {
     (async () => {
       try {
         const r = await storage.get("pf_cases_v3");
         const parsed = r ? JSON.parse(r.value) : null;
-        setCases(parsed?.length ? parsed : DEFAULT_CASES);
+        setCases(Array.isArray(parsed) ? parsed : DEFAULT_CASES);
       } catch { setCases(DEFAULT_CASES); }
       
       try {
         const r = await storage.get("pf_about_v3");
-        if (r) setAbout(JSON.parse(r.value));
+        if (r) {
+          const saved = JSON.parse(r.value);
+          // Update the shipped biography while preserving custom profile edits.
+          if (saved.bio === "UI/UX и графический дизайнер. Выпускник СПбГУПТД.\nИмею опыт работы с интерфейсами, разработкой мобильных приложений и брендингом.") saved.bio = DEFAULT_ABOUT.bio;
+          if (saved.title === "UI/UX и графический дизайнер") saved.title = DEFAULT_ABOUT.title;
+          setAbout({...DEFAULT_ABOUT, ...saved, contacts:{...DEFAULT_ABOUT.contacts, ...saved.contacts}});
+        }
+      } catch { /* defaults */ }
+      try {
+        const r = await storage.get("pf_settings_v3");
+        if (r) setSettings({showPet:false, ...JSON.parse(r.value)});
       } catch { /* defaults */ }
       setLoaded(true);
     })();
@@ -1668,7 +1931,14 @@ function App() {
     try { await storage.set("pf_about_v3", JSON.stringify(na)); } catch { /* noop */ }
   };
 
+  const saveSettings = async (next) => {
+    setSettings(next);
+    try { await storage.set("pf_settings_v3", JSON.stringify(next)); } catch { /* noop */ }
+  };
+  const petVisible = settings.showPet && cases.some(c => c.category === "pet");
+  const caseCategory = current => ["branding", "fun"].includes(current?.category) ? "fun" : current?.category || "uiux";
   const navigate = (p, id = null) => {
+    if (p !== "fun" && location.hash) history.replaceState(null,"",location.pathname + location.search);
     setPg(p);
     if (id) setCaseId(id); else if (p !== "case") setCaseId(null);
     window.scrollTo(0, 0);
@@ -1676,7 +1946,9 @@ function App() {
 
   const goAdmin = () => { setPg("admin"); setAdminPg("dashboard"); };
 
-  const currentCase = cases.find((c) => c.id === caseId);
+  const publicCases = cases.map(item=>localizeCase(item,lang));
+  const publicAbout = localizeAbout(about,lang);
+  const currentCase = publicCases.find((c) => c.id === caseId);
   const showBack = pg === "case" && currentCase;
 
   if (!loaded) return <div style={{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"Roboto,sans-serif",color:"#ccc"}}>···</div>;
@@ -1685,22 +1957,28 @@ function App() {
     if (!isAdmin) return <AdminLogin onLogin={() => setIsAdmin(true)} />;
     if (adminPg === "edit" && editCase) return <EditCase ec={editCase} cases={cases} saveCases={saveCases} setAdminPg={setAdminPg} />;
     if (adminPg === "about") return <EditAbout about={about} saveAbout={saveAbout} setAdminPg={setAdminPg} />;
-    return <AdminDashboard about={about} cases={cases} saveCases={saveCases} setEditCase={setEditCase} setAdminPg={setAdminPg} navigate={navigate} />;
+    return <AdminDashboard about={about} cases={cases} saveCases={saveCases} setEditCase={setEditCase} setAdminPg={setAdminPg} navigate={navigate} settings={settings} saveSettings={saveSettings} />;
   }
 
   return (
     <>
       <div className="shell">
-        <Header pg={pg === "case" ? currentCase?.category || "uiux" : pg} navigate={navigate} lang={lang} setLang={setLang} showBack={showBack} onBack={() => navigate(currentCase?.category || "uiux")} />
-        {pg === "about" && <AboutPage about={about} cases={cases} navigate={navigate} />}
-        {pg === "uiux" && <CategoryView cases={cases} about={about} navigate={navigate} category="uiux" />}
-        {pg === "branding" && <CategoryView cases={cases} about={about} navigate={navigate} category="branding" />}
-        {pg === "fun" && <FunPage cases={cases} about={about} navigate={navigate} />}
-        {pg === "case" && currentCase && <CasePage caseData={currentCase} cases={cases} about={about} navigate={navigate} />}
+        <Header petVisible={petVisible} pg={pg === "case" ? caseCategory(currentCase) : pg} navigate={navigate} lang={lang} setLang={setLang} showBack={showBack} onBack={() => navigate(caseCategory(currentCase))} />
+        {pg === "about" && <AboutPage about={publicAbout} cases={publicCases} navigate={navigate} />}
+        {pg === "uiux" && <CategoryView cases={publicCases} about={publicAbout} navigate={navigate} category="uiux" />}
+        {pg === "pet" && petVisible && <CategoryView cases={publicCases} about={publicAbout} navigate={navigate} category="pet" />}
+        {pg === "fun" && <FunPage cases={publicCases} about={publicAbout} navigate={navigate} />}
+        {pg === "case" && currentCase && <CasePage caseData={currentCase} cases={publicCases} about={publicAbout} navigate={navigate} />}
       </div>
       <button className="adm-link" onClick={goAdmin}>admin</button>
     </>
   );
+}
+
+function App() {
+  const [lang, setLang] = useState(() => {try {return localStorage.getItem("pf_lang_v3") === "en" ? "en" : "ru";} catch {return "ru";}});
+  useEffect(()=>{document.documentElement.lang=lang;try {localStorage.setItem("pf_lang_v3",lang);} catch {}},[lang]);
+  return <LanguageContext.Provider value={lang}><LanguageSwitch lang={lang} setLang={setLang}/><PortfolioApp lang={lang} setLang={setLang}/></LanguageContext.Provider>;
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
